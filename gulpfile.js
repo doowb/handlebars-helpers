@@ -35,7 +35,7 @@ gulp.task('test', ['coverage'], function () {
 gulp.task('search', function () {
   gulp.src(['lib/*.js'])
     .pipe(search())
-    .pipe(gulp.dest('docs/search'));
+    .pipe(gulp.dest('docs/src/data'));
 });
 
 // gulp.task('organize', function () {
