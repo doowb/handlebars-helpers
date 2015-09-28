@@ -53,7 +53,6 @@ assemble.task('load', ['verb'], function (done) {
 
   var api = assemble.partials.getView('api');
   api.content = api.content.replace(/\{{/g, '\\{{');
-  console.log(api.content);
   done();
 });
 
@@ -107,7 +106,6 @@ assemble.task('client', function () {
 
   function rebundle() {
     var stream = bundler.bundle();
-    console.log('Rebundle...');
 
     return stream.on('error', console.error)
       .pipe(source('app.js'))
