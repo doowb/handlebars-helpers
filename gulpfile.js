@@ -32,18 +32,6 @@ gulp.task('test', ['coverage'], function () {
     }))
 });
 
-gulp.task('search', function () {
-  gulp.src(['lib/*.js'])
-    .pipe(search())
-    .pipe(gulp.dest('docs/src/data'));
-});
-
-gulp.task('organize', function () {
-  return gulp.src('lib/*.js')
-    .pipe(organize())
-    .pipe(gulp.dest('lib/'));
-});
-
 gulp.task('namify', function () {
   return gulp.src(['lib/*.js'])
     .pipe(plugin.namify())
@@ -62,11 +50,11 @@ gulp.task('comments', function () {
     .pipe(gulp.dest('lib/'));
 });
 
-gulp.task('methods', function () {
+gulp.task('toc', function () {
   return gulp.src(['lib/*.js'])
     .pipe(plugin.methods({name: 'helpers', cwd: 'lib'}))
     .pipe(plugin.toc())
-    // .pipe(gulp.dest('lib/'));
+    .pipe(gulp.dest('./'));
 });
 
 gulp.task('search:data', function () {
