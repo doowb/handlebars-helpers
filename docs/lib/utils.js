@@ -25,6 +25,7 @@ utils.series = function (streams, done) {
         stream = stream();
       }
       stream
+        .on('data', function () {})
         .once('error', next)
         .once('end', next);
     };
@@ -35,8 +36,7 @@ utils.series = function (streams, done) {
 utils.copy = function (assemble) {
   return function (src, dest) {
     return function () {
-      return assemble.src(src)
-        .pipe(assemble.dest(dest));
+      return assemble.copy(src ,dest);
     };
   };
 };

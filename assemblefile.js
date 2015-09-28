@@ -16,7 +16,10 @@ var runtimes = require('composer-runtimes');
 var assemble = require('assemble')();
 var loader = require('assemble-loader');
 assemble.use(runtimes())
-  .use(loader());
+  .use(loader())
+  .on('error', function (err) {
+    console.log(err);
+  });
 
 assemble.helper('markdown', require('helper-markdown'));
 

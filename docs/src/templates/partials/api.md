@@ -1,14 +1,7 @@
 ### array
-### [.any](lib/array.js#L23)
+### [.after](lib/array.js#L32)
 
-**Params**
-
-* `array` **{Array}**    
-* `options` **{Object}**    
-
-### [.after](lib/array.js#L45)
-
-Returns all of the items in an arry after the specified index. Opposite of `{{before}}`.
+Returns all of the items in an array after the specified index. Opposite of [before][].
 
 **Params**
 
@@ -23,9 +16,18 @@ Returns all of the items in an arry after the specified index. Opposite of `{{be
 //=> '["c"]'
 ```
 
-### [.before](lib/array.js#L65)
+### [.arrayify](lib/array.js#L45)
 
-Return all of the items in the collection before the specified count. Opposite of {{after}}.
+Cast the given `value` to an array.
+
+**Params**
+
+* `value` **{any}**    
+* `returns` **{Array}**  
+
+### [.before](lib/array.js#L64)
+
+Return all of the items in the collection before the specified count. Opposite of [after][].
 
 **Params**
 
@@ -40,16 +42,7 @@ Return all of the items in the collection before the specified count. Opposite o
 //=> '["a", "b"]'
 ```
 
-### [.filter](lib/array.js#L79)
-
-**Params**
-
-* `array` **{type}**    
-* `value` **{type}**    
-* `options` **{type}**    
-* `returns` **{String}**  
-
-### [.eachIndexPlusOne](lib/array.js#L145)
+### [.eachIndex](lib/array.js#L81)
 
 **Params**
 
@@ -60,20 +53,21 @@ Return all of the items in the collection before the specified count. Opposite o
 **Example**
 
 ```handlebars
-{{#eachIndexPlusOne array}}
+{{#eachIndex collection}}
   {{item}} is {{index}}
-{{/eachIndexPlusOne}}
+{{/eachIndex}}
 ```
 
-### [.empty](lib/array.js#L161)
+### [.filter](lib/array.js#L98)
 
 **Params**
 
 * `array` **{type}**    
+* `value` **{type}**    
 * `options` **{type}**    
 * `returns` **{String}**  
 
-### [.first](lib/array.js#L183)
+### [.first](lib/array.js#L142)
 
 Returns the first item, or first `n` items of an array.
 
@@ -90,9 +84,30 @@ Returns the first item, or first `n` items of an array.
 //=> '["a", "b"]'
 ```
 
-### [.forEach](lib/array.js#L211)
+### [.forEach](lib/array.js#L184)
 
-```js var accounts = [ {'name': 'John', 'email': 'john@example.com'}, {'name': 'Malcolm', 'email': 'malcolm@example.com'}, {'name': 'David', 'email': 'david@example.com'} ];
+Iterates over each item in an array and exposes the current item in the array as context to the inner block. In addition to the current array item, the helper exposes the following variables to the inner block:
+
+- `index`
+- `total`
+- `isFirst`
+- `isLast`
+Also, `@index` is exposed as a private variable, and additional
+private variables may be defined as hash arguments.
+
+**Params**
+
+* `array` **{Array}**    
+* `returns` **{String}**  
+
+**Example**
+
+```js
+var accounts = [
+{'name': 'John', 'email': 'john@example.com'},
+{'name': 'Malcolm', 'email': 'malcolm@example.com'},
+{'name': 'David', 'email': 'david@example.com'}
+];
 
 // example usage
 // {{#forEach accounts}}
@@ -102,7 +117,11 @@ Returns the first item, or first `n` items of an array.
 // {{/forEach}}
 ```
 
-### [.inArray](lib/array.js#L236)
+### [.inArray](lib/array.js#L225)
+
+Block helper that renders the block if an array has the given `value`. Optionally specify an inverse block to render when the array does not have the given value.
+
+Given the array `['a', 'b', 'c']`:
 
 **Params**
 
@@ -111,9 +130,19 @@ Returns the first item, or first `n` items of an array.
 * `options` **{type}**    
 * `returns` **{String}**  
 
-### [.isArray](lib/array.js#L257)
+**Example**
 
-Returns true if `value` is an array.
+```handlebars
+{{#inArray array "d"}}
+  foo
+{{else}}
+  bar
+{{/inArray}}
+```
+
+### [.isArray](lib/array.js#L245)
+
+Returns true if `value` is an es5 array.
 
 **Params**
 
@@ -127,7 +156,7 @@ Returns true if `value` is an array.
 //=> 'false'
 ```
 
-### [.join](lib/array.js#L279)
+### [.join](lib/array.js#L267)
 
 Join all elements of array into a string, optionally using a given separator.
 
@@ -147,7 +176,7 @@ Join all elements of array into a string, optionally using a given separator.
 //=> 'a-b-c'
 ```
 
-### [.last](lib/array.js#L302)
+### [.last](lib/array.js#L289)
 
 Returns the last item, or last `n` items of an array. Opposite of [first][].
 
@@ -164,23 +193,12 @@ Returns the last item, or last `n` items of an array. Opposite of [first][].
 //=> '["d", "e"]'
 ```
 
-### [.length](lib/array.js#L323)
+### [.lengthEqual](lib/array.js#L310)
 
-Returns the length of the given array.
-
-**Params**
-
-* `array` **{Array}**    
-* `returns` **{Number}**: The length of the array.  
-
-**Example**
-
-```handlebars
-{{length "['a', 'b', 'c']"}}
-//=> 3
-```
-
-### [.lengthEqual](lib/array.js#L340)
+Block helper that compares the length of the given array to
+the number passed as the second argument. If the array length
+is equal to the given `length`, the block is returned,
+otherwise an inverse block may optionally be returned.
 
 **Params**
 
@@ -189,7 +207,7 @@ Returns the length of the given array.
 * `options` **{type}**    
 * `returns` **{String}**  
 
-### [.map](lib/array.js#L368)
+### [.map](lib/array.js#L337)
 
 Returns a new array, created by calling `function` on each element of the given `array`.
 
@@ -211,7 +229,7 @@ function double(str) {
 //=> '["aa", "bb", "cc"]'
 ```
 
-### [.sort](lib/array.js#L399)
+### [.sort](lib/array.js#L368)
 
 Sort the given `array`. If an array of objects is passed, you may optionally pass a `key` to sort on as the second argument. You may alternatively pass a sorting function as the second argument.
 
@@ -227,7 +245,7 @@ Sort the given `array`. If an array of objects is passed, you may optionally pas
 //=> 'a,b,c'
 ```
 
-### [.sortBy](lib/array.js#L426)
+### [.sortBy](lib/array.js#L395)
 
 Sort an `array`. If an array of objects is passed, you may optionally pass a `key` to sort on as the second argument. You may alternatively pass a sorting function as the second argument.
 
@@ -246,7 +264,7 @@ Sort an `array`. If an array of objects is passed, you may optionally pass a `ke
 //=> '[{"a":"aaa"},{"a":"zzz"}]'
 ```
 
-### [.withAfter](lib/array.js#L451)
+### [.withAfter](lib/array.js#L420)
 
 Use the items in the array _after_ the specified index
 as context inside a block. Opposite of [withBefore][].
@@ -258,7 +276,7 @@ as context inside a block. Opposite of [withBefore][].
 * `options` **{Object}**    
 * `returns` **{Array}**  
 
-### [.withBefore](lib/array.js#L478)
+### [.withBefore](lib/array.js#L447)
 
 Use the items in the array _before_ the specified index as context inside a block.Opposite of [withAfter][].
 
@@ -277,7 +295,7 @@ Use the items in the array _before_ the specified index as context inside a bloc
 {{/withBefore}}
 ```
 
-### [.withFirst](lib/array.js#L500)
+### [.withFirst](lib/array.js#L469)
 
 Use the first item in a collection inside a handlebars
 block expression. Opposite of [withLast][].
@@ -285,23 +303,23 @@ block expression. Opposite of [withLast][].
 **Params**
 
 * `array` **{Array}**    
-* **{Number}**: count    
+* `idx` **{Number}**    
 * `options` **{Object}**    
-* `returns` **{*}**  
+* `returns` **{String}**  
 
-### [.withLast](lib/array.js#L530)
+### [.withLast](lib/array.js#L502)
 
-Use the last item in a collection inside a block.
+Use the last item or `n` items in an array as context inside a block.
 Opposite of [withFirst][].
 
 **Params**
 
 * `array` **{Array}**    
-* **{Number}**: count    
+* `idx` **{Number}**: The starting index.    
 * `options` **{Object}**    
-* `returns` **{*}**  
+* `returns` **{String}**  
 
-### [.withSort](lib/array.js#L556)
+### [.withSort](lib/array.js#L536)
 
 Block helper that sorts a collection and exposes the sorted
 collection as context inside the block.
@@ -314,7 +332,7 @@ collection as context inside the block.
 * `returns` **{String}**
 
 ### code
-### [.embed](lib/code.js#L31)
+### [.embed](lib/code.js#L32)
 
 Embed code from an external file as preformatted text.
 
@@ -333,7 +351,16 @@ Embed code from an external file as preformatted text.
 {{embed 'path/to/file.hbs' 'html')}}
 ```
 
-### [.jsfiddle](lib/code.js#L57)
+### [.gist](lib/code.js#L55)
+
+Embed a GitHub Gist using only the id of the Gist
+
+**Params**
+
+* `id` **{String}**    
+* `returns` **{String}**  
+
+### [.jsfiddle](lib/code.js#L71)
 
 Generate the HTML for a jsFiddle link with the given `params`
 
@@ -349,42 +376,58 @@ Generate the HTML for a jsFiddle link with the given `params`
 ```
 
 ### comparison
-### [.contains](lib/comparison.js#L23)
+### [.and](lib/comparison.js#L28)
 
-Checks if a given value is present in a collection using strict
-equality for comparisons, i.e. `===`. If fromIndex is negative,
-it is used as the offset from the end of the collection.
-
-**Params**
-
-* `collection` **{Array|Object|string}**: The collection to iterate over.    
-* `target` **{*}**: The value to check for.    
-* `[fromIndex=0]` **{Number}**: Optionally define the index to search from.    
-
-### [.any](lib/comparison.js#L47)
-
-Returns `true` if a value exists in the given string, array or
-object, or if a callback is passed checks to see if a truthy
-value is returned for any element in a collection or for any
-sub-string in a string.
-
-**Params**
-
-* `val` **{*}**: The value to check.    
-* `pattern` **{*}**: The pattern to check for.    
-* `options` **{Object}**    
-* `returns` **{Boolean}**  
-
-### [.and](lib/comparison.js#L63)
+Block helper that renders the block if **both** of the given values
+are truthy. If an inverse block is specified it will be rendered
+when falsy.
 
 **Params**
 
 * `a` **{type}**    
 * `b` **{type}**    
 * `options` **{type}**    
-* `returns` **{Boolean}**  
+* `returns` **{String}**  
 
-### [.gt](lib/comparison.js#L80)
+### [.compare](lib/comparison.js#L49)
+
+Render a block when a comparison of the first and third
+arguments returns true. The second argument is
+the [arithemetic operator][operators] to use. You may also
+optionally specify an inverse block to render when falsy.
+
+**Params**
+
+* `a` **{}**    
+* `operator` **{}**: The operator to use. Operators must be enclosed in quotes: `">"`, `"="`, `"<="`, and so on.    
+* `b` **{}**    
+* `options` **{}**: Handlebars options object    
+* `returns` **{String}**: Block, or inverse block if specified and falsey.  
+
+### [.contains](lib/comparison.js#L120)
+
+Block helper that renders the block if `collection` has the given `value`, using strict equality (`===`) for comparison, otherwise the inverse block is rendered (if specified). If a `startIndex` is specified and is negative, it is used as the offset from the end of the collection.
+
+Given the array `['a', 'b', 'c']`:
+
+**Params**
+
+* `collection` **{Array|Object|String}**: The collection to iterate over.    
+* `value` **{any}**: The value to check for.    
+* `[startIndex=0]` **{Number}**: Optionally define the starting index.    
+* `options` **{Object}**: Handlebars provided options object.    
+
+**Example**
+
+```handlebars
+{{#contains array "d"}}
+  This will not be rendered.
+{{else}}
+  This will be rendered.
+{{/contains}}
+```
+
+### [.gt](lib/comparison.js#L140)
 
 **Params**
 
@@ -393,7 +436,7 @@ sub-string in a string.
 * `options` **{type}**    
 * `returns` **{Boolean}**  
 
-### [.gte](lib/comparison.js#L97)
+### [.gte](lib/comparison.js#L156)
 
 **Params**
 
@@ -402,92 +445,274 @@ sub-string in a string.
 * `options` **{type}**    
 * `returns` **{Boolean}**  
 
-### [.is](lib/comparison.js#L114)
+### [.has](lib/comparison.js#L174)
+
+Block helper that renders a block if `value` has `pattern`.
+If an inverse block is specified it will be rendered when falsy.
 
 **Params**
 
-* `value` **{type}**    
-* `test` **{type}**    
-* `options` **{type}**    
-* `returns` **{Boolean}**  
+* `val` **{any}**: The value to check.    
+* `pattern` **{any}**: The pattern to check for.    
+* `options` **{Object}**    
+* `returns` **{String}**  
 
-### [.isnt](lib/comparison.js#L131)
+### [.ifAny](lib/comparison.js#L212)
 
-**Params**
-
-* `value` **{type}**    
-* `test` **{type}**    
-* `options` **{type}**    
-* `returns` **{Boolean}**  
-
-### [.lt](lib/comparison.js#L148)
-
-**Params**
-
-* `value` **{type}**    
-* `test` **{type}**    
-* `options` **{type}**    
-* `returns` **{Boolean}**  
-
-### [.lte](lib/comparison.js#L165)
-
-**Params**
-
-* `value` **{type}**    
-* `test` **{type}**    
-* `options` **{type}**    
-* `returns` **{Boolean}**  
-
-### [.if_eq](lib/comparison.js#L269)
+Similar to {{#if}} block helper but accepts multiple arguments.
 
 **Params**
 
 * `context` **{type}**    
 * `options` **{type}**    
-* `returns` **{Boolean}**  
+* `returns` **{String}**: Block, or inverse block if specified and falsey.  
 
-### [.unless_eq](lib/comparison.js#L284)
+**Example**
 
-**Params**
+```js
+{{ifAny this compare=that}}
+```
 
-* `context` **{type}**    
-* `options` **{type}**    
-* `returns` **{Boolean}**  
-
-### [.if_gt](lib/comparison.js#L299)
+### [.ifEq](lib/comparison.js#L239)
 
 **Params**
 
 * `context` **{type}**    
 * `options` **{type}**    
-* `returns` **{Boolean}**  
+* `returns` **{String}**: Block, or inverse block if specified and falsey.  
 
-### [.unless_gt](lib/comparison.js#L314)
+### [.ifEven](lib/comparison.js#L262)
+
+Return true if the given vaue is an even number.
+
+**Params**
+
+* `context` **{Object}**    
+* `options` **{Object}**    
+* `returns` **{String}**: Block, or inverse block if specified and falsey.  
+
+**Example**
+
+```handlebars
+{{#ifEven value}}
+  render A
+{{else}}
+  render B
+{{/ifEven}}
+```
+
+### [.ifGt](lib/comparison.js#L274)
 
 **Params**
 
 * `context` **{type}**    
 * `options` **{type}**    
-* `returns` **{Boolean}**
+* `returns` **{String}**: Block, or inverse block if specified and falsey.  
 
-### data
-### [.stringify](lib/data.js#L19)
-
-`JSON.stringify` exposed as a helper.
+### [.ifGt](lib/comparison.js#L289)
 
 **Params**
 
-* `obj` **{Object}**: Object to stringify    
-* `returns` **{String}**
+* `context` **{type}**    
+* `options` **{type}**    
+* `returns` **{String}**: Block, or inverse block if specified and falsey.  
+
+### [.ifGt](lib/comparison.js#L304)
+
+**Params**
+
+* `context` **{type}**    
+* `options` **{type}**    
+* `returns` **{String}**: Block, or inverse block if specified and falsey.  
+
+### [.ifGt](lib/comparison.js#L319)
+
+**Params**
+
+* `context` **{type}**    
+* `options` **{type}**    
+* `returns` **{String}**: Block, or inverse block if specified and falsey.  
+
+### [.ifNth](lib/comparison.js#L338)
+
+Conditionally renders a block if the remainder is zero when
+an operand is divided by a second operand. If an inverse block is
+specified it will be rendered when the remainder is not zero.
+
+**Params**
+
+* **{}**: {Number}    
+* **{}**: {Number}    
+* `options` **{}**: Handlebars options object    
+* `returns` **{String}**: Block, or inverse block if specified and falsey.  
+
+### [.ifOdd](lib/comparison.js#L361)
+
+Return true if the given vaue is an odd number.
+
+**Params**
+
+* `context` **{Object}**    
+* `options` **{Object}**    
+* `returns` **{String}**: Block, or inverse block if specified and falsey.  
+
+**Example**
+
+```handlebars
+{{#ifOdd value}}
+  render A
+{{else}}
+  render B
+{{/ifOdd}}
+```
+
+### [.is](lib/comparison.js#L374)
+
+**Params**
+
+* `value` **{type}**    
+* `test` **{type}**    
+* `options` **{type}**    
+* `returns` **{Boolean}**  
+
+### [.isnt](lib/comparison.js#L390)
+
+**Params**
+
+* `value` **{type}**    
+* `test` **{type}**    
+* `options` **{type}**    
+* `returns` **{Boolean}**  
+
+### [.lt](lib/comparison.js#L406)
+
+**Params**
+
+* `value` **{type}**    
+* `test` **{type}**    
+* `options` **{type}**    
+* `returns` **{Boolean}**  
+
+### [.lte](lib/comparison.js#L423)
+
+**Params**
+
+* `value` **{type}**    
+* `test` **{type}**    
+* `options` **{type}**    
+* `options` **{}**: Handlebars options object    
+* `returns` **{String}**: Block, or inverse block if specified and falsey.  
+
+### [.or](lib/comparison.js#L442)
+
+Conditionally render a block if **either of** the given values
+is truthy. If an inverse block is specified it will be rendered
+when falsy.
+
+**Params**
+
+* `a` **{any}**    
+* `b` **{any}**    
+* `options` **{}**: Handlebars options object    
+* `returns` **{String}**: Block, or inverse block if specified and falsey.  
+
+### [.unlessEq](lib/comparison.js#L457)
+
+**Params**
+
+* `context` **{type}**    
+* `options` **{type}**    
+* `returns` **{String}**: Inverse block by default, or block if falsey.  
+
+### [.unlessGt](lib/comparison.js#L472)
+
+**Params**
+
+* `context` **{type}**    
+* `options` **{type}**    
+* `returns` **{String}**: Inverse block by default, or block if falsey.  
+
+### [.ifGt](lib/comparison.js#L487)
+
+**Params**
+
+* `context` **{type}**    
+* `options` **{type}**    
+* `returns` **{String}**: Block, or inverse block if specified and falsey.  
+
+### [.ifGt](lib/comparison.js#L502)
+
+**Params**
+
+* `context` **{type}**    
+* `options` **{type}**    
+* `returns` **{String}**: Block, or inverse block if specified and falsey.  
+
+### [.ifGt](lib/comparison.js#L517)
+
+**Params**
+
+* `context` **{type}**    
+* `options` **{type}**    
+* `returns` **{String}**: Block, or inverse block if specified and falsey.
 
 ### date
+### [.moment](lib/date.js#L14)
 
+Expose `moment` helper
 
 ### fs
+### [.fileSize](lib/fs.js#L25)
 
+Converts bytes into a nice representation with unit.
+
+**Examples:**
+
+- `13661855 => 13.7 MB`
+  - `825399 => 825 KB`
+  - `1396 => 1 KB`
+
+**Params**
+
+* `value` **{String}**    
+* `returns` **{String}**  
+
+### [.read](lib/fs.js#L61)
+
+Read a file from the file system.
+
+**Params**
+
+* `filepath` **{String}**    
+* `returns` **{String}**
 
 ### html
-### [.ul](lib/html.js#L91)
+### [.css](lib/html.js#L24)
+
+Add an array of <link></link> tags. Automatically resolves
+relative paths to `opts.assets` in the Assemble task.
+
+**Params**
+
+* `context` **{Object}**    
+* `returns` **{String}**  
+
+### [.js](lib/html.js#L60)
+
+Generate one or more `<script></script>` tags with paths/urls to javascript or coffeescript files.
+
+**Params**
+
+* `context` **{Object}**    
+* `returns` **{String}**  
+
+**Example**
+
+```handlebars
+{{js }}
+```
+
+### [.ul](lib/html.js#L94)
 
 Block helper for creating unordered lists (`<ul></ul>`)
 
@@ -497,7 +722,7 @@ Block helper for creating unordered lists (`<ul></ul>`)
 * `options` **{Object}**    
 * `returns` **{String}**  
 
-### [.ol](lib/html.js#L106)
+### [.ol](lib/html.js#L109)
 
 Block helper for creating ordered lists  (`<ol></ol>`)
 
@@ -507,7 +732,7 @@ Block helper for creating ordered lists  (`<ol></ol>`)
 * `options` **{Object}**    
 * `returns` **{String}**  
 
-### [.thumbnailImage](lib/html.js#L125)
+### [.thumbnailImage](lib/html.js#L128)
 
 Returns a `<figure>` with a thumbnail linked to a full picture
 
@@ -521,7 +746,16 @@ Returns a `<figure>` with a thumbnail linked to a full picture
 * `returns` **{String}**: HTML `<figure>` element with image and optional caption/link.
 
 ### i18n
+### [.i18n](lib/i18n.js#L20)
 
+i18n helper. See [button-i18n](https://github.com/assemble/buttons)
+for a working example.
+
+**Params**
+
+* `key` **{String}**    
+* `options` **{Object}**    
+* `returns` **{String}**
 
 ### index
 
@@ -560,10 +794,16 @@ Returns an ordinalized number (as a string).
 ```
 
 ### logging
-
+[logging-helpers](https://github.com/helpers/logging-helpers).
 
 ### markdown
+### [.markdown](lib/markdown.js#L14)
 
+Expose `{{markdown}}` block helper
+
+### [.md](lib/markdown.js#L21)
+
+Expose `{{md}}` helper
 
 ### math
 ### [.add](lib/math.js#L20)
@@ -666,24 +906,52 @@ avg([1, 2, 3, 4, 5])
 * `defaultValue` **{type}**    
 * `returns` **{String}**  
 
-### [.noop](lib/misc.js#L28)
+### [.noop](lib/misc.js#L30)
 
 **Params**
 
 * `options` **{type}**    
-* `returns` **{String}**
+* `returns` **{String}**  
 
-### number
-### [.phoneNumber](lib/number.js#L31)
+### [.withHash](lib/misc.js#L43)
 
-Output a formatted phone number
+Block helper that builds the context for the block
+from the attributes hash.
 
 **Params**
 
-* `num` **{Number}**: The phone number to format, e.g. `8005551212`    
+* `options` **{Object}**: Handlebars provided options object.
+
+### number
+### [.addCommas](lib/number.js#L20)
+
+Add commas to numbers
+
+**Params**
+
+* `num` **{Number}**    
+* `returns` **{Number}**  
+
+### [.phoneNumber](lib/number.js#L33)
+
+Convert a string or number to a formatted phone number.
+
+**Params**
+
+* `num` **{Number|String}**: The phone number to format, e.g. `8005551212`    
 * `returns` **{Number}**: Formatted phone number: `(800) 555-1212`  
 
-### [.randomize](lib/number.js#L62)
+### [.random](lib/number.js#L51)
+
+Generate a random number between two values
+
+**Params**
+
+* `min` **{Number}**    
+* `max` **{Number}**    
+* `returns` **{String}**  
+
+### [.randomize](lib/number.js#L65)
 
 Uses [randomatic] to generate a randomized string based on the given parameters.
 
@@ -691,7 +959,7 @@ See the [randomatic] docs for the full range of options.
 
 * `returns` **{String}**  
 
-### [.toAbbr](lib/number.js#L75)
+### [.toAbbr](lib/number.js#L78)
 
 Abbreviate numbers to the given number of `digits`.
 
@@ -701,7 +969,7 @@ Abbreviate numbers to the given number of `digits`.
 * `digits` **{String}**    
 * `returns` **{String}**  
 
-### [.toExponential](lib/number.js#L108)
+### [.toExponential](lib/number.js#L111)
 
 **Params**
 
@@ -709,16 +977,47 @@ Abbreviate numbers to the given number of `digits`.
 * `fractions` **{type}**    
 * `returns` **{Number}**  
 
-### [.toFixed](lib/number.js#L123)
+### [.toFixed](lib/number.js#L126)
 
 **Params**
 
 * `number` **{type}**    
 * `digits` **{type}**    
+* `returns` **{Number}**  
+
+### [.toFloat](lib/number.js#L139)
+
+**Params**
+
+* `number` **{Number}**    
+* `returns` **{Number}**  
+
+### [.toInt](lib/number.js#L149)
+
+**Params**
+
+* `number` **{Number}**    
+* `returns` **{Number}**  
+
+### [.toPrecision](lib/number.js#L159)
+
+**Params**
+
+* `number` **{Number}**    
 * `returns` **{Number}**
 
 ### object
-### [.forIn](lib/object.js#L20)
+### [.extend](lib/object.js#L27)
+
+Extend the context with the properties of other objects.
+A shallow merge is performed to avoid mutating the context.
+
+**Params**
+
+* `objects` **{Object}**: One or more objects to extend.    
+* `returns` **{Object}**  
+
+### [.forIn](lib/object.js#L64)
 
 Block helper that iterates over the properties of
 an object, exposing each key and value on the context.
@@ -729,34 +1028,60 @@ an object, exposing each key and value on the context.
 * `options` **{Object}**    
 * `returns` **{String}**  
 
-### [.forOwn](lib/object.js#L39)
+### [.forOwn](lib/object.js#L90)
 
 Block helper that iterates over the **own** properties of
 an object, exposing each key and value on the context.
 
 **Params**
 
-* `context` **{Object}**    
+* `obj` **{Object}**: The object to iterate over.    
 * `options` **{Object}**    
 * `returns` **{String}**  
 
-### [.hasOwn](lib/object.js#L64)
+### [.get](lib/object.js#L119)
 
-Return true if `key` is an own, enumerable property of the given `obj`.
+Use property paths (`a.b.c`) to get a value or nested value from
+the context. Works as a regular helper or block helper.
+
+**Params**
+
+* `prop` **{String}**: The property to get, optionally using dot notation for nested properties.    
+* `context` **{Object}**: The context object    
+* `options` **{Object}**: The handlebars options object, if used as a block helper.    
+* `returns` **{String}**  
+
+### [.getObject](lib/object.js#L141)
+
+Use property paths (`a.b.c`) to get an object from
+the context. Differs from the `get` helper in that this
+helper will return the actual object, including the
+given property key. Also, this helper does not work as a
+block helper.
+
+**Params**
+
+* `prop` **{String}**: The property to get, optionally using dot notation for nested properties.    
+* `context` **{Object}**: The context object    
+* `returns` **{String}**  
+
+### [.hasOwn](lib/object.js#L160)
+
+Return true if `key` is an own, enumerable property of the given `context` object.
 
 **Params**
 
 * `key` **{String}**    
-* `obj` **{Object}**: The object to check.    
+* `context` **{Object}**: The context object.    
 * `returns` **{Boolean}**  
 
 **Example**
 
 ```js
-{{hasOwn obj key}}
+{{hasOwn context key}}
 ```
 
-### [.isObject](lib/object.js#L81)
+### [.isObject](lib/object.js#L177)
 
 Return true if `value` is an object.
 
@@ -772,16 +1097,46 @@ Return true if `value` is an object.
 //=> false
 ```
 
-### [.merge](lib/object.js#L97)
+### [.merge](lib/object.js#L193)
 
-Recursively combine the properties of `o` with the
-properties of other `objects`.
+Deeply merge the properties of the given `objects` with the
+context object.
 
 **Params**
 
-* `o` **{Object}**: The target object. Pass an empty object to shallow clone.    
+* `object` **{Object}**: The target object. Pass an empty object to shallow clone.    
 * `objects` **{Object}**    
-* `returns` **{Object}**
+* `returns` **{Object}**  
+
+### [.parseJSON](lib/object.js#L217)
+
+Block helper that parses a string using `JSON.parse`,
+then passes the parsed object to the block as context.
+
+**Params**
+
+* `string` **{String}**: The string to parse    
+* `options` **{Object}**: Handlebars options object    
+
+### [.pick](lib/object.js#L231)
+
+Pick properties from the context object.
+
+**Params**
+
+* `properties` **{Array|String}**: One or more proeperties to pick.    
+* `context` **{Object}**    
+* `options` **{Object}**: Handlebars options object.    
+* `returns` **{Object}**: Returns an object with the picked values. If used as a block helper, the values are passed as context to the inner block. If no values are found, the context is passed to the inverse block.  
+
+### [.stringify](lib/object.js#L258)
+
+Stringify an object using `JSON.stringify`.
+
+**Params**
+
+* `obj` **{Object}**: Object to stringify    
+* `returns` **{String}**
 
 ### path
 ### [.relative](lib/path.js#L25)
@@ -824,7 +1179,25 @@ Capitalize first word in a sentence
 * `str` **{String}**    
 * `returns` **{String}**  
 
-### [.capitalizeFirst](lib/string.js#L33)
+### [.capitalizeAll](lib/string.js#L34)
+
+Capitalize each word in a sentence
+
+**Params**
+
+* `str` **{String}**    
+* `returns` **{String}**  
+
+### [.capitalizeEach](lib/string.js#L57)
+
+Capitalize each word in a sentence
+
+**Params**
+
+* `str` **{String}**    
+* `returns` **{String}**  
+
+### [.capitalizeFirst](lib/string.js#L73)
 
 Capitalize the first word in a sentence
 
@@ -833,148 +1206,207 @@ Capitalize the first word in a sentence
 * `str` **{String}**    
 * `returns` **{String}**  
 
-### [.capitalizeEach](lib/string.js#L48)
-
-Capitalize each word in a sentence
-
-**Params**
-
-* `str` **{String}**    
-* `returns` **{String}**  
-
-### [.capitalizeAll](lib/string.js#L64)
-
-Capitalize each word in a sentence
-
-**Params**
-
-* `str` **{String}**    
-* `returns` **{String}**  
-
-### [.center](lib/string.js#L87)
+### [.center](lib/string.js#L90)
 
 Center a string using non-breaking spaces
 
 **Params**
 
-* **{String}**: str    
-* **{String}**: spaces    
+* `str` **{String}**    
+* `spaces` **{String}**    
 * `returns` **{String}**  
 
-### [.dashify](lib/string.js#L106)
+### [.dashify](lib/string.js#L109)
 
 Replace periods in string with hyphens.
 
 **Params**
 
-* **{String}**: str    
+* `str` **{String}**    
 * `returns` **{String}**  
 
-### [.hyphenate](lib/string.js#L119)
+### [.hyphenate](lib/string.js#L123)
 
 Replace spaces in string with hyphens.
 
 **Params**
 
-* **{String}**: str    
+* `str` **{String}**    
 * `returns` **{String}**  
 
-### [.lowercase](lib/string.js#L132)
+### [.isString](lib/string.js#L137)
+
+Return true if val is a string
+
+**Params**
+
+* `val` **{String}**    
+* `returns` **{Boolean}**  
+
+### [.lowercase](lib/string.js#L149)
 
 Make all letters in the string lowercase
 
 **Params**
 
-* **{String}**: str    
+* `str` **{String}**    
 * `returns` **{String}**  
 
-### [.plusify](lib/string.js#L146)
+### [.plusify](lib/string.js#L164)
 
 Replace spaces in string with pluses.
 
 **Params**
 
-* **{String}**: str The input string    
+* `str` **{String}**: The input string    
 * `returns` **{String}**: Input string with spaces replaced by plus signs  
 
-### [.sentence](lib/string.js#L159)
+### [.sentence](lib/string.js#L178)
 
-Sentence case
+Sentence case the given string
 
 **Params**
 
-* **{String}**: str    
+* `str` **{String}**    
 * `returns` **{String}**  
 
-### [.titleize](lib/string.js#L177)
+### [.titleize](lib/string.js#L197)
 
 Title case. "This is Title Case"
 
 **Params**
 
-* **{String}**: str    
+* `str` **{String}**    
 * `returns` **{String}**  
 
-### [.uppercase](lib/string.js#L201)
+### [.uppercase](lib/string.js#L221)
 
 **Params**
 
 * `options` **{type}**    
 * `returns` **{String}**  
 
-### [.reverse](lib/string.js#L216)
+### [.reverse](lib/string.js#L241)
+
+Reverse a string.
 
 **Params**
 
 * `str` **{type}**    
 * `returns` **{String}**  
 
-### [.count](lib/string.js#L231)
+### [.occurrences](lib/string.js#L256)
 
-Return the number of occurrances of a string, within a string
-
-**Params**
-
-* **{String}**: str       The haystack    
-* **{String}**: substring The needle    
-* `returns` **{Number}**: The number of times the needle is found in the haystack.  
-
-### [.replace](lib/string.js#L259)
-
-Replace occurrences of string "A" with string "B"
+Return the number of occurrances of a substring within a string.
 
 **Params**
 
-* **{String}**: str    
-* **{String}**: a    
-* **{String}**: b    
+* `str` **{String}**    
+* `substring` **{String}**    
+* `returns` **{Number}**: Number of occurrances  
+
+### [.replace](lib/string.js#L283)
+
+Replace all occurrences of `a` in a string with `b`.
+
+**Params**
+
+* `str` **{String}**    
+* `a` **{String}**    
+* `b` **{String}**    
 * `returns` **{String}**  
 
-### [.ellipsis](lib/string.js#L275)
+### [.ellipsis](lib/string.js#L299)
 
 Truncate the input string and removes all HTML tags
 
 **Params**
 
-* **{String}**: str      The input string.    
-* **{Number}**: limit    The number of characters to limit the string.    
-* **{String}**: append   The string to append if charaters are omitted.    
-* `returns` **{String}**: The truncated string.  
+* `str` **{String}**: The input string.    
+* `limit` **{Number}**: The number of characters to limit the string.    
+* `append` **{String}**: The string to append if charaters are omitted.    
+* `returns` **{String}**  
 
-### [.truncate](lib/string.js#L298)
+### [.truncate](lib/string.js#L319)
 
 Truncates a string given a specified `length`, providing a
 custom string to denote an `omission`.
 
 **Params**
 
-* **{String}**: str    
-* **{String}**: length    
-* **{String}**: omission    
-* `returns` **{String}**
+* `str` **{String}**    
+* `length` **{String}**    
+* `omission` **{String}**    
+* `returns` **{String}**  
+
+### [.startsWith](lib/string.js#L348)
+
+Tests whether a string begins with the given prefix. Behaves sensibly if the string is null.
+
+**Params**
+
+* `prefix` **{String}**    
+* `testString` **{String}**    
+* `options` **{String}**    
+* `returns` **{String}**  
+
+**Example**
+
+```handlebars
+{{#startsWith "Goodbye" "Hello, world!"}}
+  Whoops
+{{else}}
+  Bro, do you even hello world?
+{{/startsWith}}
+```
 
 ### url
-### [.stripQuerystring](lib/url.js#L71)
+### [.encodeURI](lib/url.js#L22)
+
+Encodes a Uniform Resource Identifier (URI) component
+by replacing each instance of certain characters by
+one, two, three, or four escape sequences representing
+the UTF-8 encoding of the character.
+
+**Params**
+
+* `str` **{String}**: The un-encoded string    
+* `returns` **{String}**: The endcoded string  
+
+### [.decodeURI](lib/url.js#L34)
+
+Decode a Uniform Resource Identifier (URI) component.
+
+**Params**
+
+* `str` **{String}**    
+* `returns` **{String}**  
+
+### [.urlResolve](lib/url.js#L48)
+
+Take a base URL, and a href URL, and resolve them as a
+browser would for an anchor tag.
+
+**Params**
+
+* `base` **{String}**    
+* `href` **{String}**    
+* `returns` **{String}**  
+
+### [.urlParse](lib/url.js#L64)
+
+Take a URL string, and return an object. Pass true as the
+second argument to also parse the query string using the
+querystring module. Defaults to false.
+
+**Params**
+
+* `path` **{String}**    
+* `type` **{String}**    
+* `query` **{String}**    
+* `returns` **{String}**  
+
+### [.stripQuerystring](lib/url.js#L75)
 
 **Params**
 

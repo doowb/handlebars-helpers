@@ -7,9 +7,6 @@
 ### comparison
 {%= apidocs('lib/comparison.js') %}
 
-### data
-{%= apidocs('lib/data.js') %}
-
 ### date
 {%= apidocs('lib/date.js') %}
 
