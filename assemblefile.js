@@ -7,12 +7,18 @@
 
 'use strict';
 
+var verb = require('verb');
+verb.option('dest:vfs plugin', false);
+verb.emit('loaded');
+
 var path = require('path');
 var runtimes = require('composer-runtimes');
 var assemble = require('assemble')();
 var loader = require('assemble-loader');
 assemble.use(runtimes())
   .use(loader());
+
+assemble.helper('markdown', require('helper-markdown'));
 
 var sourcemaps = require('gulp-sourcemaps');
 var source = require('vinyl-source-stream');
@@ -35,10 +41,19 @@ assemble.option('renameKey', function (fp) {
   return path.basename(fp, path.extname(fp));
 });
 
-assemble.task('load', function (done) {
+assemble.task('verb', function (done) {
+  return verb.src('docs/api.md')
+    .pipe(verb.dest('docs/src/templates/partials'))
+});
+
+assemble.task('load', ['verb'], function (done) {
   assemble.data('docs/src/data/*.json');
   assemble.layouts.load('docs/src/templates/layouts/*.hbs');
-  assemble.partials.load('docs/src/templates/partials/*.hbs');
+  assemble.partials.load('docs/src/templates/partials/*.{hbs,md}');
+
+  var api = assemble.partials.getView('api');
+  api.content = api.content.replace(/\{{/g, '\\{{');
+  console.log(api.content);
   done();
 });
 
