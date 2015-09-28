@@ -1,0 +1,121 @@
+{
+  "array": {
+    "any": "array:any",
+    "after": "array:after",
+    "before": "array:before",
+    ".filter": "array:.filter",
+    "eachIndexPlusOne": "array:eachIndexPlusOne",
+    ".empty": "array:.empty",
+    "first": "array:first",
+    "forEach": "array:forEach",
+    ".inArray": "array:.inArray",
+    "isArray": "array:isArray",
+    "join": "array:join",
+    "last": "array:last",
+    "length": "array:length",
+    ".lengthEqual": "array:.lengthEqual",
+    "map": "array:map",
+    "sort": "array:sort",
+    "sortBy": "array:sortBy",
+    "withAfter": "array:withAfter",
+    "withBefore": "array:withBefore",
+    "withFirst": "array:withFirst",
+    "withLast": "array:withLast",
+    ".withSort": "array:.withSort"
+  },
+  "code": {
+    "embed": "code:embed",
+    "jsfiddle": "code:jsfiddle"
+  },
+  "collection": {
+    ".iterate": "collection:.iterate"
+  },
+  "comparison": {
+    "contains": "comparison:contains",
+    "any": "comparison:any",
+    ".and": "comparison:.and",
+    ".gt": "comparison:.gt",
+    ".gte": "comparison:.gte",
+    ".is": "comparison:.is",
+    ".isnt": "comparison:.isnt",
+    ".lt": "comparison:.lt",
+    ".lte": "comparison:.lte",
+    ".if_eq": "comparison:.if_eq",
+    ".unless_eq": "comparison:.unless_eq",
+    ".if_gt": "comparison:.if_gt",
+    ".unless_gt": "comparison:.unless_gt"
+  },
+  "data": {
+    "stringify": "data:stringify"
+  },
+  "date": {},
+  "fs": {},
+  "html": {
+    "ul": "html:ul",
+    "ol": "html:ol",
+    "thumbnailImage": "html:thumbnailImage"
+  },
+  "i18n": {},
+  "index": {},
+  "inflection": {
+    ".inflect": "inflection:.inflect",
+    "ordinalize": "inflection:ordinalize"
+  },
+  "logging": {},
+  "markdown": {},
+  "math": {
+    "add": "math:add",
+    "subtract": "math:subtract",
+    "divide": "math:divide",
+    "multiply": "math:multiply",
+    "floor": "math:floor",
+    "ceil": "math:ceil",
+    "round": "math:round",
+    ".sum": "math:.sum",
+    ".avg": "math:.avg"
+  },
+  "misc": {
+    ".default": "misc:.default",
+    ".noop": "misc:.noop"
+  },
+  "number": {
+    "phoneNumber": "number:phoneNumber",
+    "randomize": "number:randomize",
+    "toAbbr": "number:toAbbr",
+    ".toExponential": "number:.toExponential",
+    ".toFixed": "number:.toFixed"
+  },
+  "object": {
+    ".forIn": "object:.forIn",
+    ".forOwn": "object:.forOwn",
+    ".hasOwn": "object:.hasOwn",
+    ".isObject": "object:.isObject",
+    ".merge": "object:.merge"
+  },
+  "path": {
+    "relative": "path:relative",
+    "extname": "path:extname"
+  },
+  "string": {
+    "capitalize": "string:capitalize",
+    "capitalizeFirst": "string:capitalizeFirst",
+    "capitalizeEach": "string:capitalizeEach",
+    "capitalizeAll": "string:capitalizeAll",
+    "center": "string:center",
+    "dashify": "string:dashify",
+    "hyphenate": "string:hyphenate",
+    "lowercase": "string:lowercase",
+    "plusify": "string:plusify",
+    "sentence": "string:sentence",
+    "titleize": "string:titleize",
+    ".uppercase": "string:.uppercase",
+    ".reverse": "string:.reverse",
+    "count": "string:count",
+    "replace": "string:replace",
+    "ellipsis": "string:ellipsis",
+    "truncate": "string:truncate"
+  },
+  "url": {
+    ".stripQuerystring": "url:.stripQuerystring"
+  }
+}
