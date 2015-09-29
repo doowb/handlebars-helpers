@@ -48,7 +48,8 @@ app.task('search', function () {
   opts.index = function (lunr) {
     return lunr(function () {
       this.ref('id');
-      this.field('collection', { boost: 10 });
+      this.field('collection', { boost: 100 });
+      this.field('description', { boost: 100 });
       this.field('name', { boost: 10 });
       this.field('lead', { boost: 100 });
       this.field('examples');
