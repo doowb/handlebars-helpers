@@ -4,12 +4,22 @@ var lunr = require('lunr');
 var controllersModule = require('./');
 var comments = require('../../data/comments.json');
 var idx = lunr.Index.load(require('../../data/helpers-search-index.json'));
-var toc = require('../../../../support/utils/toc.js');
+var link = require('markdown-link');
 
-function link() {
-  return function (obj, type) {
-    return toc[type](obj.name, obj);
-  };
+// update this link with the branch some how
+function anchor(title, path, start) {
+  return link(title, 'https://github.com/assemble/handlebars-helpers/blob/dev/' + path + '#L' + start);
+}
+
+var links = {
+  code: function(name, item) {
+    return anchor('code', item.path, item.code.start);
+  },
+  unitTest: function(name, item) {
+    var line = item.test.code.start;
+    if (!line) return '[no tests]';
+    return anchor('tests', item.test.path, line);
+  }
 }
 
 /**
@@ -19,7 +29,10 @@ function HelpersListCtrl($scope, $location, $anchorScroll) {
 
   $anchorScroll.yOffset = 50;
   $scope.searchResults = [];
-  $scope.link = link();
+  $scope.link = function (obj, type) {
+    return links[type](obj.name, obj);
+  };
+
   $scope.scrollTo = function (id) {
     $anchorScroll(id);
   };
