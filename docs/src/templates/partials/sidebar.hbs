@@ -1,7 +1,7 @@
 <ul class="nav sidebar ng-cloak">
-  <li ng-repeat="collection in collections | filter:collectionSearch"><a href="#">\{{collection.name}}</a>
+  <li ng-repeat="collection in collections | filter:collectionSearch"><a ng-click="scrollTo(collection.name)">\{{collection.name}}</a>
     <div class="list-group">
-      <a ng-repeat="helper in collection.helpers | filter:helperSearch" class="list-group-item" href="#">\{{helper.name}}</a>
+      <a ng-repeat="helper in collection.helpers | filter:helperSearch" class="list-group-item" ng-click="scrollTo(helper.key)">\{{helper.name}}</a>
     </div>
   </li>
 </ul>

@@ -57,39 +57,4 @@ gulp.task('toc', function () {
     .pipe(gulp.dest('./'));
 });
 
-gulp.task('search:data', function () {
-  var opts = {};
-
-  // function to create lunr index collection
-  opts.index = function (lunr) {
-    return lunr(function () {
-      this.ref('id');
-      this.field('collection', { boost: 10 });
-      this.field('name', { boost: 10 });
-      this.field('lead', { boost: 100 });
-      this.field('examples');
-
-      // allow searching for words like `is` and `has`
-      this.pipeline.remove(lunr.stopWordFilter);
-    });
-  };
-
-  // property to add to the index
-  opts.item = 'data.comments';
-
-  // name of the file to save the index to
-  opts.name = 'helpers-search-index';
-
-  return gulp.src(['lib/*.js'])
-    .pipe(plugin.parseComments())
-    .pipe(plugin.lunr(opts))
-    .pipe(gulp.dest('docs/src/data'));
-});
-
-gulp.task('comments:lint', function () {
-  return gulp.src(['lib/object.js'])
-    .pipe(plugin.lint())
-    // .pipe(gulp.dest('lib/'));
-});
-
 gulp.task('default', ['lint', 'test']);

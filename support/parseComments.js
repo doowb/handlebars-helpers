@@ -21,6 +21,7 @@ module.exports = function parseComments(options) {
           collection: name,
           name: comment.name,
           lead: comment.lead,
+          description: comment.description,
           examples: comment.examples.map(function (example) {
             return example.code;
           })

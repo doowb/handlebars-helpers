@@ -3,8 +3,11 @@ layout: sidebar
 ---
 
 <h1 class="page-header">Handlebars Helpers</h1>
-<div class="row helpers-list" ng-non-bindable>
-{{#markdown}}
-{{> api}}
-{{/markdown}}
+<div class="row helpers-list" ng-repeat="collection in collections | filter:collectionSearch">
+  <div id="\{{collection.name}}" ng-bind-html="('## ' + collection.name) | markdown"></div>
+  <div ng-repeat="helper in collection.helpers | filter:helperSearch">
+    <span id="\{{helper.key}}" ng-bind-html="('### ' + helper.name + ' (' + link(helper, 'code') + ' | ' + link(helper, 'unitTest') + ')') | markdown"></span>
+    <div ng-bind-html="((helper.comment.lines | filter:noparams).join('\n') + '---') | markdown"></div>
+  </div>
+  <hr />
 </div>
