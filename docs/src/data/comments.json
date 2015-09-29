@@ -68,8 +68,8 @@
               "isBlockHelper": false
             },
             "code": {
-              "start": 46,
-              "end": 48,
+              "start": 50,
+              "end": 52,
               "raw": "helpers.arrayify = function (value) {\n  return value ? (Array.isArray(value) ? value : [value]) : [];\n};",
               "params": [
                 "value"
@@ -77,12 +77,16 @@
             },
             "comment": {
               "start": 38,
-              "end": 44,
-              "raw": "*\n * Cast the given `value` to an array.\n *\n * @param {any} `value`\n * @return {Array}\n * @api public\n ",
+              "end": 48,
+              "raw": "*\n * Cast the given `value` to an array.\n *\n * ```handlebars\n * {{arrayify \"foo\"}}\n * //=> '[\"foo\"]'\n * ```\n * @param {any} `value`\n * @return {Array}\n * @api public\n ",
               "lines": [
                 "",
                 "Cast the given `value` to an array.",
                 "",
+                "```handlebars",
+                "{{arrayify \"foo\"}}",
+                "//=> '[\"foo\"]'",
+                "```",
                 "@param {any} `value`",
                 "@return {Array}",
                 "@api public",
@@ -108,8 +112,8 @@
               "isBlockHelper": false
             },
             "code": {
-              "start": 65,
-              "end": 68,
+              "start": 69,
+              "end": 72,
               "raw": "helpers.before = function(array, n) {\n  if (utils.isUndefined(array)) return '';\n  return array.slice(0, -n);\n};",
               "params": [
                 "array",
@@ -117,8 +121,8 @@
               ]
             },
             "comment": {
-              "start": 50,
-              "end": 63,
+              "start": 54,
+              "end": 67,
               "raw": "*\n * Return all of the items in the collection before the specified\n * count. Opposite of [after][].\n *\n * ```handlebars\n * {{before \"['a', 'b', 'c']\" 2}}\n * //=> '[\"a\", \"b\"]'\n * ```\n *\n * @param {Array} `array`\n * @param {Number} `n`\n * @return {Array} Array excluding items after the given number.\n * @api public\n ",
               "lines": [
                 "",
@@ -156,8 +160,8 @@
               "isBlockHelper": true
             },
             "code": {
-              "start": 83,
-              "end": 89,
+              "start": 87,
+              "end": 93,
               "raw": "helpers.eachIndex = function(array, options) {\n  var result = '';\n  for (var i = 0; i < array.length; i++) {\n    result += options.fn({item: array[i], index: i});\n  }\n  return result;\n};",
               "params": [
                 "array",
@@ -165,8 +169,8 @@
               ]
             },
             "comment": {
-              "start": 70,
-              "end": 81,
+              "start": 74,
+              "end": 85,
               "raw": "*\n * ```handlebars\n * {{#eachIndex collection}}\n *   {{item}} is {{index}}\n * {{/eachIndex}}\n * ```\n * @param {Array} `array`\n * @param {Object} `options`\n * @return {String}\n * @block\n * @api public\n ",
               "lines": [
                 "",
@@ -202,8 +206,8 @@
               "isBlockHelper": true
             },
             "code": {
-              "start": 101,
-              "end": 128,
+              "start": 105,
+              "end": 132,
               "raw": "helpers.filter = function(array, value, options) {\n  var content = '';\n  var results = [];\n\n  // filter on a specific property\n  var prop = options.hash && options.hash.property;\n  if (prop) {\n    results = filter(array, function (val) {\n      if (get(val, prop) === value) {\n        return true;\n      }\n    });\n  } else {\n\n    // filter on a string value\n    results = filter(array, function(v) {\n      return value === v;\n    });\n  }\n\n  if (results && results.length > 0) {\n    for (var i = 0; i < results.length; i++) {\n      content += options.fn(results[i]);\n    }\n    return content;\n  }\n  return options.inverse(this);\n};",
               "params": [
                 "array",
@@ -212,8 +216,8 @@
               ]
             },
             "comment": {
-              "start": 91,
-              "end": 99,
+              "start": 95,
+              "end": 103,
               "raw": "*\n * @name .filter\n * @param {type} `array`\n * @param {type} `value`\n * @param {type} `options`\n * @return {String}\n * @block\n * @api public\n ",
               "lines": [
                 "",
@@ -246,8 +250,8 @@
               "isBlockHelper": false
             },
             "code": {
-              "start": 144,
-              "end": 150,
+              "start": 148,
+              "end": 154,
               "raw": "helpers.first = function(array, n) {\n  if (utils.isUndefined(array)) return '';\n  if (!isNumber(n)) {\n    return array[0];\n  }\n  return array.slice(0, n);\n};",
               "params": [
                 "array",
@@ -255,8 +259,8 @@
               ]
             },
             "comment": {
-              "start": 130,
-              "end": 142,
+              "start": 134,
+              "end": 146,
               "raw": "*\n * Returns the first item, or first `n` items of an array.\n *\n * ```handlebars\n * {{first \"['a', 'b', 'c', 'd', 'e']\" 2}}\n * //=> '[\"a\", \"b\"]'\n * ```\n *\n * @param {Array} `array`\n * @param {Number} `n` Number of items to return, starting at `0`.\n * @return {Array}\n * @api public\n ",
               "lines": [
                 "",
@@ -293,8 +297,8 @@
               "isBlockHelper": true
             },
             "code": {
-              "start": 187,
-              "end": 203,
+              "start": 191,
+              "end": 207,
               "raw": "helpers.forEach = function(array, options) {\n  var data = createFrame(options, options.hash);\n  var len = array.length;\n  var buffer = '';\n  var i = -1;\n\n  while (++i < len) {\n    var item = array[i];\n    data.index = i;\n    item.index = i + 1;\n    item.total = len;\n    item.isFirst = i === 0;\n    item.isLast = i === (len - 1);\n    buffer += options.fn(item, {data: data});\n  }\n  return buffer;\n};",
               "params": [
                 "array",
@@ -302,8 +306,8 @@
               ]
             },
             "comment": {
-              "start": 152,
-              "end": 185,
+              "start": 156,
+              "end": 189,
               "raw": "*\n * Iterates over each item in an array and exposes the current item\n * in the array as context to the inner block. In addition to\n * the current array item, the helper exposes the following variables\n * to the inner block:\n *\n * - `index`\n * - `total`\n * - `isFirst`\n * - `isLast`\n *\n * Also, `@index` is exposed as a private variable, and additional\n * private variables may be defined as hash arguments.\n *\n * ```js\n * var accounts = [\n *   {'name': 'John', 'email': 'john@example.com'},\n *   {'name': 'Malcolm', 'email': 'malcolm@example.com'},\n *   {'name': 'David', 'email': 'david@example.com'}\n * ];\n *\n * // example usage\n * // {{#forEach accounts}}\n * //   <a href=\"mailto:{{ email }}\" title=\"Send an email to {{ name }}\">\n * //     {{ name }}\n * //   </a>{{#unless isLast}}, {{/unless}}\n * // {{/forEach}}\n * ```\n * @source <http://stackoverflow.com/questions/13861007>\n * @param {Array} `array`\n * @return {String}\n * @block\n * @api public\n ",
               "lines": [
                 "",
@@ -361,8 +365,8 @@
               "isBlockHelper": true
             },
             "code": {
-              "start": 229,
-              "end": 234,
+              "start": 233,
+              "end": 238,
               "raw": "helpers.inArray = function(array, value, options) {\n  if (indexOf.call(array, value) > -1) {\n    return options.fn(this);\n  }\n  return options.inverse(this);\n};",
               "params": [
                 "array",
@@ -371,8 +375,8 @@
               ]
             },
             "comment": {
-              "start": 205,
-              "end": 227,
+              "start": 209,
+              "end": 231,
               "raw": "*\n * Block helper that renders the block if an array has the\n * given `value`. Optionally specify an inverse block to render\n * when the array does not have the given value.\n *\n * Given the array `['a', 'b', 'c']`:\n *\n * ```handlebars\n * {{#inArray array \"d\"}}\n *   foo\n * {{else}}\n *   bar\n * {{/inArray}}\n * ```\n *\n * @name .inArray\n * @param {type} `array`\n * @param {type} `value`\n * @param {type} `options`\n * @return {String}\n * @block\n * @api public\n ",
               "lines": [
                 "",
@@ -419,16 +423,16 @@
               "isBlockHelper": false
             },
             "code": {
-              "start": 249,
-              "end": 251,
+              "start": 253,
+              "end": 255,
               "raw": "helpers.isArray = function(value) {\n  return Array.isArray(value);\n};",
               "params": [
                 "value"
               ]
             },
             "comment": {
-              "start": 236,
-              "end": 247,
+              "start": 240,
+              "end": 251,
               "raw": "*\n * Returns true if `value` is an es5 array.\n *\n * ```handlebars\n * {{isArray \"abc\"}}\n * //=> 'false'\n * ```\n *\n * @param {any} `value` The value to test.\n * @return {Boolean}\n * @api public\n ",
               "lines": [
                 "",
@@ -464,8 +468,8 @@
               "isBlockHelper": false
             },
             "code": {
-              "start": 271,
-              "end": 277,
+              "start": 275,
+              "end": 281,
               "raw": "helpers.join = function(array, sep) {\n  if (utils.isUndefined(array)) return '';\n  sep = typeof sep !== 'string'\n    ? ', '\n    : sep;\n  return array.join(sep);\n};",
               "params": [
                 "array",
@@ -473,8 +477,8 @@
               ]
             },
             "comment": {
-              "start": 253,
-              "end": 269,
+              "start": 257,
+              "end": 273,
               "raw": "*\n * Join all elements of array into a string, optionally using a\n * given separator.\n *\n * ```handlebars\n * {{join \"['a', 'b', 'c']\"}}\n * //=> 'a, b, c'\n *\n * {{join \"['a', 'b', 'c']\" '-'}}\n * //=> 'a-b-c'\n * ```\n *\n * @param {Array} `array`\n * @param {String} `sep` The separator to use.\n * @return {String}\n * @api public\n ",
               "lines": [
                 "",
@@ -515,8 +519,8 @@
               "isBlockHelper": false
             },
             "code": {
-              "start": 293,
-              "end": 298,
+              "start": 297,
+              "end": 302,
               "raw": "helpers.last = function(array, n) {\n  if (!isNumber(n)) {\n    return array[array.length - 1];\n  }\n  return array.slice(-n);\n};",
               "params": [
                 "array",
@@ -524,8 +528,8 @@
               ]
             },
             "comment": {
-              "start": 279,
-              "end": 291,
+              "start": 283,
+              "end": 295,
               "raw": "*\n * Returns the last item, or last `n` items of an array.\n * Opposite of [first][].\n *\n * ```handlebars\n * {{last \"['a', 'b', 'c', 'd', 'e']\" 2}}\n * //=> '[\"d\", \"e\"]'\n * ```\n * @param {Array} `array`\n * @param {Number} `n` Number of items to return, starting with the last item.\n * @return {Array}\n * @api public\n ",
               "lines": [
                 "",
@@ -562,8 +566,8 @@
               "isBlockHelper": true
             },
             "code": {
-              "start": 315,
-              "end": 320,
+              "start": 319,
+              "end": 324,
               "raw": "helpers.lengthEqual = function(array, length, options) {\n  if (array.length === length) {\n    return options.fn(this);\n  }\n  return options.inverse(this);\n};",
               "params": [
                 "array",
@@ -572,8 +576,8 @@
               ]
             },
             "comment": {
-              "start": 300,
-              "end": 313,
+              "start": 304,
+              "end": 317,
               "raw": "*\n * Block helper that compares the length of the given array to\n * the number passed as the second argument. If the array length\n * is equal to the given `length`, the block is returned,\n * otherwise an inverse block may optionally be returned.\n *\n * @name .lengthEqual\n * @param {type} `array`\n * @param {type} `length`\n * @param {type} `options`\n * @return {String}\n * @block\n * @api public\n ",
               "lines": [
                 "",
@@ -611,8 +615,8 @@
               "isBlockHelper": false
             },
             "code": {
-              "start": 342,
-              "end": 355,
+              "start": 346,
+              "end": 359,
               "raw": "helpers.map = function(array, fn) {\n  if (utils.isUndefined(array)) return '';\n  if (typeof array === 'string' && /[[]/.test(array)) {\n    array = utils.tryParse(array) || [];\n  }\n  var len = array.length;\n  var res = new Array(len);\n  var i = -1;\n\n  while (++i < len) {\n    res[i] = fn(array[i], i, array);\n  }\n  return res;\n};",
               "params": [
                 "array",
@@ -620,8 +624,8 @@
               ]
             },
             "comment": {
-              "start": 322,
-              "end": 340,
+              "start": 326,
+              "end": 344,
               "raw": "*\n * Returns a new array, created by calling `function`\n * on each element of the given `array`.\n *\n * ```js\n * // register `double` as a helper\n * function double(str) {\n *   return str + str;\n * }\n * // then used like this:\n * // {{map \"['a', 'b', 'c']\" double}}\n * //=> '[\"aa\", \"bb\", \"cc\"]'\n * ```\n *\n * @param {Array} `array`\n * @param {Function} `fn`\n * @return {String}\n * @api public\n ",
               "lines": [
                 "",
@@ -664,8 +668,8 @@
               "isBlockHelper": true
             },
             "code": {
-              "start": 377,
-              "end": 391,
+              "start": 381,
+              "end": 395,
               "raw": "helpers.some = function(arr, cb, options) {\n  cb = iterator(cb, this);\n  if (arr == null) {\n    return options.inverse(this);\n  }\n\n  var result = false;\n  var len = arr.length, i = -1;\n  while (++i < len) {\n    if (cb(arr[i], i, arr)) {\n      return options.fn(this);\n    }\n  }\n  return options.inverse(this);\n};",
               "params": [
                 "arr",
@@ -674,8 +678,8 @@
               ]
             },
             "comment": {
-              "start": 357,
-              "end": 375,
+              "start": 361,
+              "end": 379,
               "raw": "*\n * Block helper that returns the block if the callback returns true\n * for some value in the given array.\n *\n * ```handlebars\n * {{#some array isString}}\n *   Render me if the array has a string.\n * {{else}}\n *   Render me if it doesn't.\n * {{/some}}\n * ```\n * @name .some\n * @param {Array} `array`\n * @param {Function} `cb` callback function\n * @param {Options} Handlebars provided options object\n * @return {Array}\n * @block\n * @api public\n ",
               "lines": [
                 "",
@@ -718,8 +722,8 @@
               "isBlockHelper": false
             },
             "code": {
-              "start": 409,
-              "end": 415,
+              "start": 413,
+              "end": 419,
               "raw": "helpers.sort = function(arr, options) {\n  if (utils.isUndefined(arr)) return '';\n  if (get(options, 'hash.reverse')) {\n    return arr.sort().reverse();\n  }\n  return arr.sort();\n};",
               "params": [
                 "arr",
@@ -727,8 +731,8 @@
               ]
             },
             "comment": {
-              "start": 393,
-              "end": 407,
+              "start": 397,
+              "end": 411,
               "raw": "*\n * Sort the given `array`. If an array of objects is passed,\n * you may optionally pass a `key` to sort on as the second\n * argument. You may alternatively pass a sorting function as\n * the second argument.\n *\n * ```handlebars\n * {{sort \"['b', 'a', 'c']\"}}\n * //=> 'a,b,c'\n * ```\n *\n * @param {Array} `array` the array to sort.\n * @param {String|Function} `key` The object key to sort by, or sorting function.\n * @api public\n ",
               "lines": [
                 "",
@@ -767,16 +771,16 @@
               "isBlockHelper": false
             },
             "code": {
-              "start": 436,
-              "end": 448,
+              "start": 440,
+              "end": 452,
               "raw": "helpers.sortBy = function(arr/*, prop*/) {\n  if (utils.isUndefined(arr)) return '';\n  var args = [].slice.call(arguments);\n  args.pop(); // remove hbs options object\n\n  if (typeof args[0] === 'string' && /[[]/.test(args[0])) {\n    args[0] = utils.tryParse(args[0]) || [];\n  }\n  if (utils.isUndefined(args[1])) {\n    return args[0].sort();\n  }\n  return sortBy.apply(null, args);\n};",
               "params": [
                 "arr"
               ]
             },
             "comment": {
-              "start": 417,
-              "end": 434,
+              "start": 421,
+              "end": 438,
               "raw": "*\n * Sort an `array`. If an array of objects is passed,\n * you may optionally pass a `key` to sort on as the second\n * argument. You may alternatively pass a sorting function as\n * the second argument.\n *\n * ```handlebars\n * {{sortBy '[\"b\", \"a\", \"c\"]'}}\n * //=> 'a,b,c'\n *\n * {{sortBy '[{a: \"zzz\"}, {a: \"aaa\"}]' \"a\"}}\n * //=> '[{\"a\":\"aaa\"},{\"a\":\"zzz\"}]'\n * ```\n *\n * @param {Array} `array` the array to sort.\n * @param {String|Function} `props` One or more properties to sort by, or sorting functions to use.\n * @api public\n ",
               "lines": [
                 "",
@@ -818,8 +822,8 @@
               "isBlockHelper": true
             },
             "code": {
-              "start": 462,
-              "end": 471,
+              "start": 466,
+              "end": 475,
               "raw": "helpers.withAfter = function(array, idx, options) {\n  array = array.slice(idx);\n  var result = '';\n\n  var len = array.length, i = -1;\n  while (++i < len) {\n    result += options.fn(array[i]);\n  }\n  return result;\n};",
               "params": [
                 "array",
@@ -828,8 +832,8 @@
               ]
             },
             "comment": {
-              "start": 450,
-              "end": 460,
+              "start": 454,
+              "end": 464,
               "raw": "*\n * Use the items in the array _after_ the specified index\n * as context inside a block. Opposite of [withBefore][].\n *\n * @param {Array} `array`\n * @param {Number} `idx`\n * @param {Object} `options`\n * @return {Array}\n * @block\n * @api public\n ",
               "lines": [
                 "",
@@ -864,8 +868,8 @@
               "isBlockHelper": true
             },
             "code": {
-              "start": 490,
-              "end": 499,
+              "start": 494,
+              "end": 503,
               "raw": "helpers.withBefore = function(array, idx, options) {\n  array = array.slice(0, -idx);\n  var result = '';\n\n  var len = array.length, i = -1;\n  while (++i < len) {\n    result += options.fn(array[i]);\n  }\n  return result;\n};",
               "params": [
                 "array",
@@ -874,8 +878,8 @@
               ]
             },
             "comment": {
-              "start": 473,
-              "end": 488,
+              "start": 477,
+              "end": 492,
               "raw": "*\n * Use the items in the array _before_ the specified index\n * as context inside a block.Opposite of [withAfter][].\n *\n * ```handlebars\n * {{#withBefore array 3}}\n *   {{this}}\n * {{/withBefore}}\n * ```\n * @param {Array} `array`\n * @param {Number} `idx`\n * @param {Object} `options`\n * @return {Array}\n * @block\n * @api public\n ",
               "lines": [
                 "",
@@ -915,8 +919,8 @@
               "isBlockHelper": true
             },
             "code": {
-              "start": 513,
-              "end": 533,
+              "start": 517,
+              "end": 537,
               "raw": "helpers.withFirst = function(arr, idx, options) {\n  if (utils.isUndefined(arr)) return '';\n  arr = utils.result(arr);\n\n  if (!utils.isUndefined(idx)) {\n    idx = parseFloat(utils.result(idx));\n  }\n\n  if (utils.isUndefined(idx)) {\n    options = idx;\n    return options.fn(arr[0]);\n  }\n\n  arr = arr.slice(0, idx);\n  var len = arr.length, i = -1;\n  var result = '';\n  while (++i < len) {\n    result += options.fn(arr[i]);\n  }\n  return result;\n};",
               "params": [
                 "arr",
@@ -925,8 +929,8 @@
               ]
             },
             "comment": {
-              "start": 501,
-              "end": 511,
+              "start": 505,
+              "end": 515,
               "raw": "*\n * Use the first item in a collection inside a handlebars\n * block expression. Opposite of [withLast][].\n *\n * @param {Array} `array`\n * @param {Number} `idx`\n * @param {Object} `options`\n * @return {String}\n * @block\n * @api public\n ",
               "lines": [
                 "",
@@ -961,8 +965,8 @@
               "isBlockHelper": true
             },
             "code": {
-              "start": 547,
-              "end": 567,
+              "start": 551,
+              "end": 571,
               "raw": "helpers.withLast = function(array, idx, options) {\n  if (utils.isUndefined(array)) return '';\n  array = utils.result(array);\n\n  if (!utils.isUndefined(idx)) {\n    idx = parseFloat(utils.result(idx));\n  }\n\n  if (utils.isUndefined(idx)) {\n    options = idx;\n    return options.fn(array[array.length - 1]);\n  }\n\n  array = array.slice(-idx);\n  var len = array.length, i = -1;\n  var result = '';\n  while (++i < len) {\n    result += options.fn(array[i]);\n  }\n  return result;\n};",
               "params": [
                 "array",
@@ -971,8 +975,8 @@
               ]
             },
             "comment": {
-              "start": 535,
-              "end": 545,
+              "start": 539,
+              "end": 549,
               "raw": "*\n * Use the last item or `n` items in an array as context inside a block.\n * Opposite of [withFirst][].\n *\n * @param {Array} `array`\n * @param {Number} `idx` The starting index.\n * @param {Object} `options`\n * @return {String}\n * @block\n * @api public\n ",
               "lines": [
                 "",
@@ -1007,8 +1011,8 @@
               "isBlockHelper": true
             },
             "code": {
-              "start": 582,
-              "end": 615,
+              "start": 586,
+              "end": 619,
               "raw": "helpers.withSort = function(array, prop, options) {\n  if (utils.isUndefined(array)) return '';\n  var result = '';\n\n  if (utils.isUndefined(prop)) {\n    options = prop;\n\n    array = array.sort();\n    if (get(options, 'hash.reverse')) {\n      array = array.reverse();\n    }\n\n    for (var i = 0, len = array.length; i < len; i++) {\n      result += options.fn(array[i]);\n    }\n    return result;\n  }\n\n  array.sort(function(a, b) {\n    a = get(a, prop);\n    b = get(b, prop);\n    return a > b;\n  });\n\n  if (get(options, 'hash.reverse')) {\n    array = array.reverse();\n  }\n\n  var alen = array.length, j = -1;\n  while (++j < alen) {\n    result += options.fn(array[j]);\n  }\n  return result;\n};",
               "params": [
                 "array",
@@ -1017,8 +1021,8 @@
               ]
             },
             "comment": {
-              "start": 569,
-              "end": 580,
+              "start": 573,
+              "end": 584,
               "raw": "*\n * Block helper that sorts a collection and exposes the sorted\n * collection as context inside the block.\n *\n * @name .withSort\n * @param {type} `array`\n * @param {type} `prop`\n * @param {type} `options` Specify `reverse=\"true\"` to reverse the array.\n * @return {String}\n * @block\n * @api public\n ",
               "lines": [
                 "",
@@ -1077,12 +1081,12 @@
             "comment": {
               "start": 15,
               "end": 29,
-              "raw": "*\n * Embed code from an external file as preformatted text.\n *\n * ```js\n * {{embed 'path/to/file.js'}}\n *\n * // specify the language to use\n * {{embed 'path/to/file.hbs' 'html')}}\n * ```\n *\n * @param {String} `fp` filepath to the file to embed.\n * @param {String} `language` Optionally specify the language to use for syntax highlighting.\n * @return {String}\n * @api public\n ",
+              "raw": "*\n * Embed code from an external file as preformatted text.\n *\n * ```handlebars\n * {{embed 'path/to/file.js'}}\n *\n * // specify the language to use\n * {{embed 'path/to/file.hbs' 'html')}}\n * ```\n *\n * @param {String} `fp` filepath to the file to embed.\n * @param {String} `language` Optionally specify the language to use for syntax highlighting.\n * @return {String}\n * @api public\n ",
               "lines": [
                 "",
                 "Embed code from an external file as preformatted text.",
                 "",
-                "```js",
+                "```handlebars",
                 "{{embed 'path/to/file.js'}}",
                 "",
                 "// specify the language to use",
@@ -1115,8 +1119,8 @@
               "isBlockHelper": false
             },
             "code": {
-              "start": 54,
-              "end": 56,
+              "start": 56,
+              "end": 58,
               "raw": "helpers.gist = function (id) {\n  return '<script src=\"https://gist.github.com/' + id + '.js\"></script>';\n};",
               "params": [
                 "id"
@@ -1124,14 +1128,16 @@
             },
             "comment": {
               "start": 45,
-              "end": 52,
-              "raw": "*\n * Embed a GitHub Gist using only the id of the Gist\n *\n * @param  {String} `id`\n * @usage: `{{gist [id]}}`\n * @return {String}\n * @api public\n ",
+              "end": 54,
+              "raw": "*\n * Embed a GitHub Gist using only the id of the Gist\n *\n * ```handlebars\n * {{gist 12345}}\n * ```\n * @param  {String} `id`\n * @return {String}\n * @api public\n ",
               "lines": [
                 "",
                 "Embed a GitHub Gist using only the id of the Gist",
                 "",
+                "```handlebars",
+                "{{gist 12345}}",
+                "```",
                 "@param  {String} `id`",
-                "@usage: `{{gist [id]}}`",
                 "@return {String}",
                 "@api public",
                 ""
@@ -1156,22 +1162,22 @@
               "isBlockHelper": false
             },
             "code": {
-              "start": 70,
-              "end": 93,
+              "start": 72,
+              "end": 95,
               "raw": "helpers.jsfiddle = function jsFiddle(attr) {\n  attr = object.merge({}, attr, attr.hash);\n  delete attr.name;\n  delete attr.hash;\n  delete attr.data;\n\n  if (typeof attr.id === 'undefined') {\n    throw new Error('jsfiddle helper expects an `id`');\n  }\n\n  attr.id = 'http://jsfiddle.net/' + attr.id;\n  attr.width = attr.width || '100%';\n  attr.height = attr.height || '300';\n  attr.skin = attr.skin || '/presentation/';\n  attr.tabs = (attr.tabs || 'result,js,html,css') + attr.skin;\n  attr.src = attr.id + '/embedded/' + attr.tabs;\n  attr.allowfullscreen = attr.allowfullscreen || 'allowfullscreen';\n  attr.frameborder = attr.frameborder || '0';\n\n  delete attr.tabs;\n  delete attr.skin;\n  delete attr.id;\n  return '<iframe ' + html.parseAttributes(attr) + '></iframe>';\n};",
               "params": [
                 "attr"
               ]
             },
             "comment": {
-              "start": 58,
-              "end": 68,
-              "raw": "*\n * Generate the HTML for a jsFiddle link with the given `params`\n *\n * ```js\n * {{jsfiddle id=\"0dfk10ks\" tabs=\"true\"}}\n * ```\n *\n * @param {Object} `params`\n * @return {String}\n * @api public\n ",
+              "start": 60,
+              "end": 70,
+              "raw": "*\n * Generate the HTML for a jsFiddle link with the given `params`\n *\n * ```handlebars\n * {{jsfiddle id=\"0dfk10ks\" tabs=\"true\"}}\n * ```\n *\n * @param {Object} `params`\n * @return {String}\n * @api public\n ",
               "lines": [
                 "",
                 "Generate the HTML for a jsFiddle link with the given `params`",
                 "",
-                "```js",
+                "```handlebars",
                 "{{jsfiddle id=\"0dfk10ks\" tabs=\"true\"}}",
                 "```",
                 "",
@@ -2871,12 +2877,12 @@
             "comment": {
               "start": 37,
               "end": 54,
-              "raw": "*\n * Returns an ordinalized number (as a string).\n *\n * ```js\n * {{ordinalize 1}}\n * //=> '1st'\n * {{ordinalize 21}}\n * //=> '21st'\n * {{ordinalize 29}}\n * //=> '29th'\n * {{ordinalize 22}}\n * //=> '22nd'\n * ```\n *\n * @param {String} `val` The value to ordinalize.\n * @return {String} The ordinalized number\n * @api public\n ",
+              "raw": "*\n * Returns an ordinalized number (as a string).\n *\n * ```handlebars\n * {{ordinalize 1}}\n * //=> '1st'\n * {{ordinalize 21}}\n * //=> '21st'\n * {{ordinalize 29}}\n * //=> '29th'\n * {{ordinalize 22}}\n * //=> '22nd'\n * ```\n *\n * @param {String} `val` The value to ordinalize.\n * @return {String} The ordinalized number\n * @api public\n ",
               "lines": [
                 "",
                 "Returns an ordinalized number (as a string).",
                 "",
-                "```js",
+                "```handlebars",
                 "{{ordinalize 1}}",
                 "//=> '1st'",
                 "{{ordinalize 21}}",
@@ -3096,22 +3102,22 @@
             "code": {
               "start": 43,
               "end": 45,
-              "raw": "helpers.divide = function(value, divisor) {\n  return value / divisor;\n};",
+              "raw": "helpers.divide = function(a, b) {\n  return a / b;\n};",
               "params": [
-                "value",
-                "divisor"
+                "a",
+                "b"
               ]
             },
             "comment": {
               "start": 35,
               "end": 41,
-              "raw": "*\n * Divide `a` by `b`\n *\n * @param {Number} `a`\n * @param {Number} `b` divisor\n * @api public\n ",
+              "raw": "*\n * Divide `a` by `b`\n *\n * @param {Number} `a` numerator\n * @param {Number} `b` denominator\n * @api public\n ",
               "lines": [
                 "",
                 "Divide `a` by `b`",
                 "",
-                "@param {Number} `a`",
-                "@param {Number} `b` divisor",
+                "@param {Number} `a` numerator",
+                "@param {Number} `b` denominator",
                 "@api public",
                 ""
               ],
@@ -3137,21 +3143,21 @@
             "code": {
               "start": 55,
               "end": 57,
-              "raw": "helpers.multiply = function(value, multiplier) {\n  return value * multiplier;\n};",
+              "raw": "helpers.multiply = function(a, b) {\n  return a * b;\n};",
               "params": [
-                "value",
-                "multiplier"
+                "a",
+                "b"
               ]
             },
             "comment": {
               "start": 47,
               "end": 53,
-              "raw": "*\n * Divide `a` by `b`.\n *\n * @param {Number} `a`\n * @param {Number} `b` multiplier\n * @api public\n ",
+              "raw": "*\n * Multiply `a` by `b`.\n *\n * @param {Number} `a` factor\n * @param {Number} `b` multiplier\n * @api public\n ",
               "lines": [
                 "",
-                "Divide `a` by `b`.",
+                "Multiply `a` by `b`.",
                 "",
-                "@param {Number} `a`",
+                "@param {Number} `a` factor",
                 "@param {Number} `b` multiplier",
                 "@api public",
                 ""
@@ -3301,13 +3307,13 @@
             "comment": {
               "start": 92,
               "end": 104,
-              "raw": "*\n * Returns the sum of all numbers in the given array.\n *\n * ```js\n * sum([1, 2, 3, 4, 5])\n * //=> '15'\n * ```\n *\n * @name .sum\n * @param {Array} `array` Array of numbers to add up.\n * @return {Number}\n * @api public\n ",
+              "raw": "*\n * Returns the sum of all numbers in the given array.\n *\n * ```handlebars\n * {{sum \"[1, 2, 3, 4, 5]\"}}\n * //=> '15'\n * ```\n *\n * @name .sum\n * @param {Array} `array` Array of numbers to add up.\n * @return {Number}\n * @api public\n ",
               "lines": [
                 "",
                 "Returns the sum of all numbers in the given array.",
                 "",
-                "```js",
-                "sum([1, 2, 3, 4, 5])",
+                "```handlebars",
+                "{{sum \"[1, 2, 3, 4, 5]\"}}",
                 "//=> '15'",
                 "```",
                 "",
@@ -3336,20 +3342,20 @@
             },
             "code": {
               "start": 132,
-              "end": 136,
-              "raw": "helpers.avg = function() {\n  var args = flatten([].concat.apply([], arguments));\n  args.pop(); // remove handlebars options\n  return exports.sum(args) / args.length;\n};",
+              "end": 137,
+              "raw": "helpers.avg = function() {\n  var args = flatten([].concat.apply([], arguments));\n  // remove handlebars options object\n  args.pop();\n  return exports.sum(args) / args.length;\n};",
               "params": []
             },
             "comment": {
               "start": 118,
               "end": 130,
-              "raw": "*\n * Returns the average of all numbers in the given array.\n *\n * ```js\n * avg([1, 2, 3, 4, 5])\n * //=> '3'\n * ```\n *\n * @name .avg\n * @param {Array} `array` Array of numbers to add up.\n * @return {Number}\n * @api public\n ",
+              "raw": "*\n * Returns the average of all numbers in the given array.\n *\n * ```handlebars\n * {{avg \"[1, 2, 3, 4, 5]\"}}\n * //=> '3'\n * ```\n *\n * @name .avg\n * @param {Array} `array` Array of numbers to add up.\n * @return {Number}\n * @api public\n ",
               "lines": [
                 "",
                 "Returns the average of all numbers in the given array.",
                 "",
-                "```js",
-                "avg([1, 2, 3, 4, 5])",
+                "```handlebars",
+                "{{avg \"[1, 2, 3, 4, 5]\"}}",
                 "//=> '3'",
                 "```",
                 "",
@@ -3391,8 +3397,8 @@
               "isBlockHelper": false
             },
             "code": {
-              "start": 17,
-              "end": 21,
+              "start": 20,
+              "end": 24,
               "raw": "helpers.default = function(value, defaultValue) {\n  return value == null\n    ? defaultValue\n    : value;\n};",
               "params": [
                 "value",
@@ -3401,9 +3407,12 @@
             },
             "comment": {
               "start": 9,
-              "end": 15,
-              "raw": "*\n * @name .default\n * @param {type} `value`\n * @param {type} `defaultValue`\n * @return {String}\n * @api public\n ",
+              "end": 18,
+              "raw": "*\n * Returns the first value if defined, otherwise the second (\"default\")\n * value is returned.\n *\n * @name .default\n * @param {type} `value`\n * @param {type} `defaultValue`\n * @return {String}\n * @api public\n ",
               "lines": [
+                "",
+                "Returns the first value if defined, otherwise the second (\"default\")",
+                "value is returned.",
                 "",
                 "@name .default",
                 "@param {type} `value`",
@@ -3432,18 +3441,20 @@
               "isBlockHelper": true
             },
             "code": {
-              "start": 31,
-              "end": 33,
+              "start": 36,
+              "end": 38,
               "raw": "helpers.noop = function(options) {\n  return options.fn(this);\n};",
               "params": [
                 "options"
               ]
             },
             "comment": {
-              "start": 23,
-              "end": 29,
-              "raw": "*\n * @name .noop\n * @param {type} `options`\n * @return {String}\n * @block\n * @api public\n ",
+              "start": 26,
+              "end": 34,
+              "raw": "*\n * Block helper that renders the block without taking any arguments.\n *\n * @name .noop\n * @param {type} `options`\n * @return {String}\n * @block\n * @api public\n ",
               "lines": [
+                "",
+                "Block helper that renders the block without taking any arguments.",
                 "",
                 "@name .noop",
                 "@param {type} `options`",
@@ -3472,16 +3483,16 @@
               "isBlockHelper": true
             },
             "code": {
-              "start": 45,
-              "end": 51,
+              "start": 50,
+              "end": 56,
               "raw": "helpers.withHash = function(options) {\n  if (options.hash && Object.keys(options.hash).length) {\n    return options.fn(options.hash);\n  } else {\n    return options.inverse(this);\n  }\n};",
               "params": [
                 "options"
               ]
             },
             "comment": {
-              "start": 35,
-              "end": 43,
+              "start": 40,
+              "end": 48,
               "raw": "*\n * Block helper that builds the context for the block\n * from the options hash.\n *\n * @param {Object} `options` Handlebars provided options object.\n * @contributor Vladimir Kuznetsov <https://github.com/mistakster>\n * @block\n * @api public\n ",
               "lines": [
                 "",
@@ -4135,13 +4146,13 @@
             "comment": {
               "start": 148,
               "end": 161,
-              "raw": "*\n * Return true if `key` is an own, enumerable property\n * of the given `context` object.\n *\n * ```js\n * {{hasOwn context key}}\n * ```\n *\n * @name .hasOwn\n * @param  {String} `key`\n * @param  {Object} `context` The context object.\n * @return {Boolean}\n * @api public\n ",
+              "raw": "*\n * Return true if `key` is an own, enumerable property\n * of the given `context` object.\n *\n * ```handlebars\n * {{hasOwn context key}}\n * ```\n *\n * @name .hasOwn\n * @param  {String} `key`\n * @param  {Object} `context` The context object.\n * @return {Boolean}\n * @api public\n ",
               "lines": [
                 "",
                 "Return true if `key` is an own, enumerable property",
                 "of the given `context` object.",
                 "",
-                "```js",
+                "```handlebars",
                 "{{hasOwn context key}}",
                 "```",
                 "",
@@ -4182,12 +4193,12 @@
             "comment": {
               "start": 167,
               "end": 178,
-              "raw": "*\n * Return true if `value` is an object.\n *\n * ```js\n * {{isObject \"foo\"}}\n * //=> false\n * ```\n * @name .isObject\n * @param  {String} `value`\n * @return {Boolean}\n * @api public\n ",
+              "raw": "*\n * Return true if `value` is an object.\n *\n * ```handlebars\n * {{isObject \"foo\"}}\n * //=> false\n * ```\n * @name .isObject\n * @param  {String} `value`\n * @return {Boolean}\n * @api public\n ",
               "lines": [
                 "",
                 "Return true if `value` is an object.",
                 "",
-                "```js",
+                "```handlebars",
                 "{{isObject \"foo\"}}",
                 "//=> false",
                 "```",
@@ -4388,13 +4399,13 @@
       "tests": "test/path.js",
       "data": {
         "methods": {
-          "relative": {
-            "name": "relative",
+          "basename": {
+            "name": "basename",
             "path": "lib/path.js",
             "test": {
               "path": "test/path.js",
               "code": {
-                "start": 24
+                "start": 9
               }
             },
             "stats": {
@@ -4402,28 +4413,70 @@
               "isBlockHelper": false
             },
             "code": {
-              "start": 25,
-              "end": 27,
-              "raw": "helpers.relative = function(a, b) {\n  return relative(a, b);\n};",
+              "start": 24,
+              "end": 26,
+              "raw": "helpers.basename = function(filepath) {\n  return path.basename(filepath);\n};",
               "params": [
-                "a",
-                "b"
+                "filepath"
               ]
             },
             "comment": {
               "start": 12,
-              "end": 23,
-              "raw": "*\n * Get the relative path from `a` to `b`.\n *\n * ```handlebars\n * {{relative a b}}\n * ```\n *\n * @param {String} `a`\n * @param {String} `b`\n * @return {String}\n * @api public\n ",
+              "end": 22,
+              "raw": "*\n * Get the file extension from the given `filepath`.\n *\n * ```handlebars\n * {{basename \"docs/toc.md\"}}\n * //=> 'toc.md'\n * ```\n * @param {String} `ext`\n * @return {String}\n * @api public\n ",
               "lines": [
                 "",
-                "Get the relative path from `a` to `b`.",
+                "Get the file extension from the given `filepath`.",
                 "",
                 "```handlebars",
-                "{{relative a b}}",
+                "{{basename \"docs/toc.md\"}}",
+                "//=> 'toc.md'",
                 "```",
+                "@param {String} `ext`",
+                "@return {String}",
+                "@api public",
+                ""
+              ],
+              "hasBlockComment": false
+            },
+            "context": {
+              "parent": "path"
+            }
+          },
+          "dirname": {
+            "name": "dirname",
+            "path": "lib/path.js",
+            "test": {
+              "path": "test/path.js",
+              "code": {
+                "start": 31
+              }
+            },
+            "stats": {
+              "isModule": false,
+              "isBlockHelper": false
+            },
+            "code": {
+              "start": 40,
+              "end": 42,
+              "raw": "helpers.dirname = function(filepath) {\n  return path.dirname(filepath);\n};",
+              "params": [
+                "filepath"
+              ]
+            },
+            "comment": {
+              "start": 28,
+              "end": 38,
+              "raw": "*\n * Get the directory path segment from the given `filepath`.\n *\n * ```handlebars\n * {{dirname \"docs/toc.md\"}}\n * //=> 'docs'\n * ```\n * @param {String} `ext`\n * @return {String}\n * @api public\n ",
+              "lines": [
                 "",
-                "@param {String} `a`",
-                "@param {String} `b`",
+                "Get the directory path segment from the given `filepath`.",
+                "",
+                "```handlebars",
+                "{{dirname \"docs/toc.md\"}}",
+                "//=> 'docs'",
+                "```",
+                "@param {String} `ext`",
                 "@return {String}",
                 "@api public",
                 ""
@@ -4440,7 +4493,7 @@
             "test": {
               "path": "test/path.js",
               "code": {
-                "start": 9
+                "start": 20
               }
             },
             "stats": {
@@ -4448,25 +4501,72 @@
               "isBlockHelper": false
             },
             "code": {
-              "start": 40,
-              "end": 42,
-              "raw": "helpers.extname = function(ext) {\n  return path.extname(ext);\n};",
+              "start": 56,
+              "end": 58,
+              "raw": "helpers.extname = function(filepath) {\n  return path.extname(filepath);\n};",
               "params": [
-                "ext"
+                "filepath"
               ]
             },
             "comment": {
-              "start": 29,
-              "end": 38,
-              "raw": "*\n * ```handlebars\n * {{extname \"docs/toc.md\"}}\n * //=> '.js'\n * ```\n *\n * @param {String} `ext`\n * @return {String}\n * @api public\n ",
+              "start": 44,
+              "end": 54,
+              "raw": "*\n * Get the file extension from the given `filepath`.\n *\n * ```handlebars\n * {{extname \"docs/toc.md\"}}\n * //=> '.md'\n * ```\n * @param {String} `filepath`\n * @return {String}\n * @api public\n ",
               "lines": [
+                "",
+                "Get the file extension from the given `filepath`.",
                 "",
                 "```handlebars",
                 "{{extname \"docs/toc.md\"}}",
-                "//=> '.js'",
+                "//=> '.md'",
+                "```",
+                "@param {String} `filepath`",
+                "@return {String}",
+                "@api public",
+                ""
+              ],
+              "hasBlockComment": false
+            },
+            "context": {
+              "parent": "path"
+            }
+          },
+          "relative": {
+            "name": "relative",
+            "path": "lib/path.js",
+            "test": {
+              "path": "test/path.js",
+              "code": {
+                "start": 38
+              }
+            },
+            "stats": {
+              "isModule": false,
+              "isBlockHelper": false
+            },
+            "code": {
+              "start": 73,
+              "end": 75,
+              "raw": "helpers.relative = function(a, b) {\n  return relative(a, b);\n};",
+              "params": [
+                "a",
+                "b"
+              ]
+            },
+            "comment": {
+              "start": 60,
+              "end": 71,
+              "raw": "*\n * Get the relative filepath from `a` to `b`.\n *\n * ```handlebars\n * {{relative a b}}\n * ```\n *\n * @param {String} `a`\n * @param {String} `b`\n * @return {String}\n * @api public\n ",
+              "lines": [
+                "",
+                "Get the relative filepath from `a` to `b`.",
+                "",
+                "```handlebars",
+                "{{relative a b}}",
                 "```",
                 "",
-                "@param {String} `ext`",
+                "@param {String} `a`",
+                "@param {String} `b`",
                 "@return {String}",
                 "@api public",
                 ""
@@ -4479,7 +4579,7 @@
           }
         },
         "codepath": "lib/path.js",
-        "count": 2
+        "count": 4
       },
       "missingdocs": []
     },
@@ -5515,5 +5615,5 @@
       "missingdocs": []
     }
   },
-  "total": 119
+  "total": 121
 }
