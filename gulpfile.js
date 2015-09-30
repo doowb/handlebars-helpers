@@ -9,6 +9,7 @@ var gulp = require('gulp');
 var search = require('./docs/search.js');
 
 var lint = ['index.js', 'lib/*.js'];
+var pkg = require('./package.json');
 
 gulp.task('lint', function () {
   return gulp.src(lint)
@@ -54,6 +55,17 @@ gulp.task('toc', function () {
   return gulp.src(['lib/*.js'])
     .pipe(plugin.methods({name: 'helpers', cwd: 'lib'}))
     .pipe(plugin.toc())
+    .pipe(gulp.dest('./'));
+});
+
+gulp.task('scaffolds', function () {
+  var props = {};
+  props.name = pkg.name;
+  props.description = pkg.description;
+  props.version = pkg.version;
+
+  return gulp.src(['lib/*.js'])
+    .pipe(plugin.scaffolds(props))
     .pipe(gulp.dest('./'));
 });
 

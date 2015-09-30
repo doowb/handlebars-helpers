@@ -1,0 +1,30 @@
+{
+  "name": "handlebars-helpers",
+  "description": "More than 130 Handlebars helpers in ~20 categories. Helpers can be used with Assemble, YUI, Ghost or any node.js/Handlebars project.",
+  "version": "0.6.0",
+  "homepage": "",
+  "authors": [],
+  "license": "MIT",
+  "files": {
+    "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/array.js": "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/array.js",
+    "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/code.js": "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/code.js",
+    "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/collection.js": "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/collection.js",
+    "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/comparison.js": "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/comparison.js",
+    "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/date.js": "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/date.js",
+    "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/fs.js": "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/fs.js",
+    "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/html.js": "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/html.js",
+    "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/i18n.js": "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/i18n.js",
+    "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/index.js": "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/index.js",
+    "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/inflection.js": "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/inflection.js",
+    "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/logging.js": "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/logging.js",
+    "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/markdown.js": "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/markdown.js",
+    "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/math.js": "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/math.js",
+    "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/misc.js": "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/misc.js",
+    "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/number.js": "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/number.js",
+    "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/object.js": "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/object.js",
+    "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/path.js": "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/path.js",
+    "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/string.js": "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/string.js",
+    "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/url.js": "/Users/doowb/work/assemble/helpers/handlebars-helpers/lib/url.js"
+  },
+  "config": {}
+}
