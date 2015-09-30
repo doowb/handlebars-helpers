@@ -1,5 +1,6 @@
 'use strict';
 
+var path = require('path');
 var plugin = require('./support/');
 var stylish = require('jshint-stylish');
 var istanbul = require('gulp-istanbul');
@@ -59,13 +60,22 @@ gulp.task('toc', function () {
 });
 
 gulp.task('scaffolds', function () {
-  var props = {};
-  props.name = pkg.name;
-  props.description = pkg.description;
-  props.version = pkg.version;
+  var props = {
+    name: pkg.name,
+    description: pkg.description,
+    version: pkg.version,
+  };
+
+  var opts = {
+    cwd: 'docs/lib',
+    base: 'https://raw.githubusercontents.com/doowb/handlebars-helpers',
+    rename: function (fp) {
+      return path.basename(fp, path.extname(fp));
+    }
+  };
 
   return gulp.src(['lib/*.js'])
-    .pipe(plugin.scaffolds(props))
+    .pipe(plugin.scaffolds(props, opts))
     .pipe(gulp.dest('./'));
 });
 

@@ -3,6 +3,7 @@
 var Scaffolds = require('scaffolds');
 var through = require('through2');
 var File = require('vinyl');
+var path = require('path');
 
 
 module.exports = function(props, options) {
@@ -30,9 +31,14 @@ module.exports = function(props, options) {
     };
   }
 
+  function resolvePath (file) {
+    var fp = (scaffolds.options.base || '') + path.join(scaffolds.options.cwd || '', path.basename(file.path));
+    return fp;
+  }
+
   return through.obj(function (file, enc, cb) {
     if (filterFn(file) === true) {
-      scaffolds.addFile(renameFn(file.path), file.path);
+      scaffolds.addFile(renameFn(file.path), resolvePath(file));
     }
     return cb();
   }, function (cb) {
