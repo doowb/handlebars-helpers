@@ -1,0 +1,6 @@
+{
+  "prop": "bar",
+  "context": {
+    "foo": "bar"
+  }
+}

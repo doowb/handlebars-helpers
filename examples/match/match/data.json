@@ -1,0 +1,7 @@
+{
+  "files": "bar",
+  "patterns": "bar",
+  "locals": {
+    "foo": "bar"
+  }
+}

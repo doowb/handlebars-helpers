@@ -1,0 +1,3 @@
+{
+  "description": "Returns true if `val` is falsey. Works as a block or inline helper."
+}

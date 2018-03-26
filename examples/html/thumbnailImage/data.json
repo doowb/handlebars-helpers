@@ -1,0 +1,9 @@
+{
+  "context": {
+    "foo": "bar"
+  },
+  "context.alt": "bar",
+  "context.src": "bar",
+  "context.width": 2,
+  "context.height": 2
+}

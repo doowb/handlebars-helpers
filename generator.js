@@ -3,7 +3,6 @@
 const fs = require('fs');
 const path = require('path');
 const File = require('vinyl');
-const yaml = require('js-yaml');
 const through = require('through2');
 const comments = require('js-comments');
 const exists = require('fs-exists-sync');
@@ -17,10 +16,13 @@ module.exports = function(app) {
 };
 
 function examples(app) {
+  const files = [];
   return through.obj(function(file, enc, next) {
     try {
       if (file.stem !== 'index') {
+        files.push(file);
         let codeComments = comments.parse(file.contents.toString());
+        file.comments = codeComments;
         for (let i = 0; i < codeComments.length; i++) {
           let code = codeComments[i];
           createConfigFile(file, code, this);
@@ -32,11 +34,44 @@ function examples(app) {
     } catch (err) {
       next(err);
     }
+  }, function(cb) {
+    let code = `
+'use strict';
+
+var fs = require('fs');
+var path = require('path');
+
+module.exports = {${files.reduce((acc, file) => {
+    acc += `
+  ${file.stem}: {${file.comments.reduce((acc2, comment) => {
+      let dir = `./${file.stem}/${comment.context.name}`;
+      acc2 += `
+    ${comment.context.name}: {
+      data: require('${dir}/data.json'),
+      config: require('${dir}/config.json'),
+      template: fs.readFileSync(path.resolve(__dirname, '${dir}/template.hbs'), 'utf8')
+    },\n`;
+      return acc2;
+    }, '').slice(0, -2)}
+  },\n`;
+  return acc;
+  }, '').slice(0, -2)}
+};
+`;
+
+    let file = new File({
+      path: path.resolve(`./index.js`),
+      base: app.cwd,
+      cwd: app.cwd,
+      contents: new Buffer(code)
+    });
+    this.push(file);
+    cb();
   });
 }
 
 function createConfigFile(file, code, stream) {
-  let fp = path.resolve(`./examples/${file.stem}/${code.context.name}/config.yaml`);
+  let fp = path.resolve(`./examples/${file.stem}/${code.context.name}/config.json`);
   if (exists(fp)) {
     return;
   }
@@ -49,7 +84,7 @@ function createConfigFile(file, code, stream) {
     path: fp,
     base: file.base,
     cwd: file.cwd,
-    contents: new Buffer(yaml.dump(config))
+    contents: new Buffer(JSON.stringify(config, null, 2))
   }));
 }
 

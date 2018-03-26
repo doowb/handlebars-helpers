@@ -1,0 +1,3 @@
+{
+  "description": "Take arguments and, if they are string or number, convert them to a dot-delineated object property path."
+}

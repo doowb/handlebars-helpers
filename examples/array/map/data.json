@@ -1,0 +1,9 @@
+{
+  "array": [
+    "foo",
+    "bar",
+    "baz",
+    "qux"
+  ],
+  "fn": "bar"
+}

@@ -1,0 +1,6 @@
+{
+  "properties": "bar",
+  "context": {
+    "foo": "bar"
+  }
+}

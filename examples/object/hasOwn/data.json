@@ -1,0 +1,6 @@
+{
+  "key": "bar",
+  "context": {
+    "foo": "bar"
+  }
+}
