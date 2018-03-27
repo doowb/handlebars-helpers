@@ -375,25 +375,25 @@ module.exports = {
     }
   },
 
-  fs: {
-    fileSize: {
-      data: require('./fs/fileSize/data.json'),
-      config: require('./fs/fileSize/config.json'),
-      template: fs.readFileSync(path.resolve(__dirname, './fs/fileSize/template.hbs'), 'utf8')
-    },
+  // fs: {
+  //   fileSize: {
+  //     data: require('./fs/fileSize/data.json'),
+  //     config: require('./fs/fileSize/config.json'),
+  //     template: fs.readFileSync(path.resolve(__dirname, './fs/fileSize/template.hbs'), 'utf8')
+  //   },
 
-    read: {
-      data: require('./fs/read/data.json'),
-      config: require('./fs/read/config.json'),
-      template: fs.readFileSync(path.resolve(__dirname, './fs/read/template.hbs'), 'utf8')
-    },
+  //   read: {
+  //     data: require('./fs/read/data.json'),
+  //     config: require('./fs/read/config.json'),
+  //     template: fs.readFileSync(path.resolve(__dirname, './fs/read/template.hbs'), 'utf8')
+  //   },
 
-    readdir: {
-      data: require('./fs/readdir/data.json'),
-      config: require('./fs/readdir/config.json'),
-      template: fs.readFileSync(path.resolve(__dirname, './fs/readdir/template.hbs'), 'utf8')
-    }
-  },
+  //   readdir: {
+  //     data: require('./fs/readdir/data.json'),
+  //     config: require('./fs/readdir/config.json'),
+  //     template: fs.readFileSync(path.resolve(__dirname, './fs/readdir/template.hbs'), 'utf8')
+  //   }
+  // },
 
   html: {
     attr: {

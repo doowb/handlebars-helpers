@@ -1,0 +1,9 @@
+
+#app {
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  border: 1px solid black;
+  margin: auto;
+  padding: 2em;
+}

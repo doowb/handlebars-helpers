@@ -1,0 +1,47 @@
+<div class="row" id="{{collection.name}}-{{name}}">
+  <div class="col-lg-6 col-md-6 col-sm-12 description">
+    {{collection.name}}.{{name}}: {{config.description}}
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-12">
+    <button class="btn btn-primary" id="run-{{collection.name}}-{{name}}"><span class="oi oi-play-circle"></span></button>
+  </div>
+</div>
+<div class="row helper">
+  <div class="col-lg-6 col-md-6 col-sm-12">
+    <nav>
+      <div class="nav nav-tabs" id="nav-input-{{collection.name}}-{{name}}" role="tablist">
+        <a class="nav-item nav-link active" data-toggle="list" href="#tab-template-{{collection.name}}-{{name}}" role="tab">template</a>
+        <a class="nav-item nav-link" data-toggle="list" href="#tab-data-{{collection.name}}-{{name}}" role="tab">data</a>
+      </div>
+    </nav>
+
+    <div class="tab-content">
+      <div class="tab-pane active" id="tab-template-{{collection.name}}-{{name}}" role="tabpanel">
+{{> template this helper=this collection=collection}}
+      </div>
+      <div class="tab-pane" id="tab-data-{{collection.name}}-{{name}}" role="tabpanel">
+{{> data this helper=this collection=collection}}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6 col-md-6 col-sm-12">
+    <nav>
+      <div class="nav nav-tabs" id="nav-output-{{collection.name}}-{{name}}" role="tablist">
+        <a class="nav-item nav-link active" data-toggle="list" href="#tab-result-{{collection.name}}-{{name}}" role="tab">
+          result
+        </a>
+        <a class="nav-item nav-link" data-toggle="list" href="#tab-html-{{collection.name}}-{{name}}" role="tab">html</a>
+      </div>
+    </nav>
+
+    <div class="tab-content">
+      <div class="tab-pane active" id="tab-result-{{collection.name}}-{{name}}" role="tabpanel">
+{{> output this helper=this collection=collection}}
+      </div>
+      <div class="tab-pane" id="tab-html-{{collection.name}}-{{name}}" role="tabpanel">
+{{> html this helper=this collection=collection}}
+      </div>
+    </div>
+  </div>
+</div>

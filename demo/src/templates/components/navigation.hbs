@@ -1,0 +1,10 @@
+<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-menu-collections" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Helpers </button>
+<div class="dropdown-menu" aria-labelledby="dropdown-menu-collections">
+{{#each collections as |collection|}}
+  <a class="dropdown-header" href="#{{collection.name}}">{{collection.name}}</a>
+  {{#each collection.helpers as |helper|}}
+    <a class="dropdown-item" href="#{{collection.name}}-{{helper.name}}">{{helper.name}}</a>
+  {{/each}}
+  <div class="dropdown-divider"></div>
+{{/each}}
+</div>

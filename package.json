@@ -101,6 +101,7 @@
     "year": "^0.2.1"
   },
   "devDependencies": {
+    "babel-preset-es2015": "^6.24.1",
     "engine-handlebars": "^0.8.2",
     "fs-exists-sync": "^0.1.0",
     "global-modules": "^1.0.0",
